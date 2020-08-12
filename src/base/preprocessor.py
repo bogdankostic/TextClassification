@@ -5,9 +5,5 @@ class BasePreprocessor(ABC):
 
     @classmethod
     @abstractmethod
-    def read_from_file(self, filename):
-        pass
-
-    @abstractmethod
-    def train_test_split(self):
+    def from_file(self, filename):
         pass
