@@ -41,7 +41,7 @@ class CSVPreprocessor(BasePreprocessor):
             number_of_test_samples = int(len(data) * test_split)
             number_of_dev_samples = int(len(data) * dev_split)
 
-            # split data
+            # split data into train, test and dev sets
             self.test = data[:number_of_test_samples]
             self.dev = data[number_of_test_samples:
                            number_of_test_samples+number_of_dev_samples]
@@ -56,6 +56,7 @@ class CSVPreprocessor(BasePreprocessor):
                                               text_column, label_column)
         else:
             self.train = []
+
             if test_filename:
                 self.test = self._extract_data(test_filename, delimiter,
                                                text_column, label_column)
@@ -66,6 +67,18 @@ class CSVPreprocessor(BasePreprocessor):
                                               text_column, label_column)
             else:
                 self.dev = []
+
+    def get_data(self):
+        return self.train, self.test, self.dev
+
+    def get_train_data(self):
+        return self.train
+
+    def get_test_data(self):
+        return self.test
+
+    def get_dev_data(self):
+        return self.dev
 
     @classmethod
     def from_file(cls, train_filename=None, test_filename=None,
@@ -78,12 +91,13 @@ class CSVPreprocessor(BasePreprocessor):
 
     @staticmethod
     def _extract_data(filename, delimiter, text_column, label_column):
+        # TODO what happens if empty csv-file? (next might raise an Error)
         with open(filename, "r") as file:
             csv_reader = csv.reader(file, delimiter=delimiter)
             headers = next(csv_reader)
             text_col_idx = headers.index(text_column)
             label_col_idx = headers.index(label_column)
-            data = [(row[text_col_idx], row[label_col_idx])
+            data = [{"text": row[text_col_idx], "label": row[label_col_idx]}
                     for row in csv_reader]
 
         return data
