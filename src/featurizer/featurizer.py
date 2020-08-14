@@ -1,25 +1,64 @@
 from multiprocessing import cpu_count
+from collections import Counter
 
 import spacy
+import time
 
 from src.base.featurizer import BaseFeaturizer
-import time
 
 class Featurizer(BaseFeaturizer):
 
-    def __init__(self, preprocessor, lang_model="en_core_web_sm"):
+    def __init__(self, preprocessor, lang_model="en_core_web_sm",
+                 normalize=True):
 
         self.spacy_model = spacy.load(lang_model, disable=["parser"])
+        self.normalize = normalize
 
         self.train = self._add_spacy_annotations(preprocessor.get_train_data())
         self.test = self._add_spacy_annotations(preprocessor.get_test_data())
         self.dev = self._add_spacy_annotations(preprocessor.get_dev_data())
+
+        start = time.time()
+        for instance in self.train:
+            self.char_based_features(instance)
+        print(time.time() - start)
 
     def add_feature(self):
         pass
 
     def extract_features(self):
         pass
+
+    #################################################
+    ### Character-based features ####################
+    #################################################
+
+    def char_based_features(self, instance):
+        counts = Counter(
+            "alpha" if char.isalpha() else
+            "upper" if char.isupper() else
+            "lower" if char.islower() else
+            "numeric" if char.isnumeric() else
+            "whitespace" if char.isspace() else
+            "comma" if char == "," else
+            "dot" if char == "." else
+            "exclamation" if char == "!" else
+            "question" if char == "?" else
+            "colon" if char == ":" else
+            "semicolon" if char == ";" else
+            "hyphen" if char == "-" else
+            "at" if char == "@" else
+            "other"
+            for char in instance["text"]
+        )
+
+        # normalize counts
+        if self.normalize:
+            number_of_chars = len(instance["text"])
+            for feature, count in counts.items():
+                counts[feature] = count / number_of_chars
+
+        instance.update({"char_features": counts})
 
     def _add_spacy_annotations(self, data):
         spacy_docs = self.spacy_model.pipe([sample["text"] for sample in data],
