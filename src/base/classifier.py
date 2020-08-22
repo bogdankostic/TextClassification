@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+import pickle
 
 
 class BaseClassifier(ABC):
@@ -15,11 +16,13 @@ class BaseClassifier(ABC):
     def evaluate(self):
         pass
 
-    @abstractmethod
-    def save(self):
-        pass
+    def save(self, filename):
+        with open(filename, "wb") as file:
+            pickle.dump(self, file)
 
     @classmethod
-    @abstractmethod
-    def load(self):
-        pass
+    def load(cls, filename):
+        with open(filename, "rb") as file:
+            classifier = pickle.load(file)
+
+        return classifier

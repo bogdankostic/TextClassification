@@ -55,6 +55,20 @@ class Featurizer(BaseFeaturizer):
                         instance["feature_vector"] += list(count_dict.values())
                         instance["feature_names"] += list(count_dict.keys())
 
+    def extract_features_from_dicts(self, dicts, exclude=set()):
+        self._add_spacy_annotations(dicts)
+
+        for instance in dicts:
+            instance["feature_vector"] = []
+            instance["feature_names"] = []
+            for function in self.feature_functions:
+                count_dict = function(instance, exclude)
+                if count_dict is not None:
+                    instance["feature_vector"] += list(count_dict.values())
+                    instance["feature_names"] += list(count_dict.keys())
+
+        return dicts
+
     def char_based_features(self, instance, exclude=set()):
         counts = Counter({
             "alpha": 0,
