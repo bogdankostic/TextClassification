@@ -5,7 +5,7 @@ from statistics import mean
 import spacy
 from spacymoji import Emoji
 
-from src.base.featurizer import BaseFeaturizer
+from text_classification.featurizer.base import BaseFeaturizer
 
 
 class TweetFeaturizer(BaseFeaturizer):

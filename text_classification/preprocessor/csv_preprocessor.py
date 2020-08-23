@@ -1,8 +1,7 @@
 import csv
 import random
-import logging
 
-from src.base.preprocessor import BasePreprocessor
+from text_classification.preprocessor.base import BasePreprocessor
 
 
 class CSVPreprocessor(BasePreprocessor):

@@ -4,7 +4,7 @@ import csv
 
 from sklearn.metrics import classification_report
 
-from src.base.classifier import BaseClassifier
+from text_classification.classifier.base import BaseClassifier
 
 
 class ClassAverageClassifier(BaseClassifier):
