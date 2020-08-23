@@ -8,9 +8,23 @@ from spacymoji import Emoji
 from src.base.featurizer import BaseFeaturizer
 
 
-class Featurizer(BaseFeaturizer):
+class TweetFeaturizer(BaseFeaturizer):
+    """
+    Featurizer that extracts features from tweets, i.e. it doesn't
+    contain any paragraph-based features as these don't apply for
+    tweets.
+    """
 
     def __init__(self, lang_model="en_core_web_sm", normalize=True):
+        """
+        Instantiates a TweetFeaturizer instance.
+
+        :param lang_model: A spaCy language model name.
+        :type lang_model: str
+        :param normalize: Whether to normalize the features based on
+            number of chars/tokens.
+        :type normalize: bool
+        """
 
         try:
             # initialize spacy model
@@ -29,16 +43,37 @@ class Featurizer(BaseFeaturizer):
 
         self.normalize = normalize
         self.feature_functions = [
-            self.char_based_features,
-            self.word_based_features,
-            self.pos_features,
-            self.ner_features,
+            self._char_based_features,
+            self._word_based_features,
+            self._pos_features,
+            self._ner_features,
         ]
 
     def add_feature(self, feature_extraction_function):
+        """
+        Adds a custom feature extraction function to the predefined
+        ones. The feature extraction function must take as input a
+        dictionary containing a key 'text' and return a dict with
+        with 'feature_names' and 'feature_vector' as keys.
+
+        :param feature_extraction_function: Custom function that
+            extracts features from text.
+        :type feature_extraction_function: function
+        """
         self.feature_functions.append(feature_extraction_function)
 
     def extract_features(self, preprocessor, exclude=set()):
+        """
+        Extracts the features for all splits in the preprocessor and
+        adds feature vector and feature name for each instance in-place.
+
+        :param preprocessor: Preprocessor containing data to featurize.
+        :type preprocessor: BasePreprocessor
+        :param exclude: Set of features that shpuld be excluded from
+            resulting feature vectors.
+        :param exclude: Set[str]
+        """
+
         data_splits = preprocessor.get_data()
 
         for split in data_splits:
@@ -55,21 +90,7 @@ class Featurizer(BaseFeaturizer):
                         instance["feature_vector"] += list(count_dict.values())
                         instance["feature_names"] += list(count_dict.keys())
 
-    def extract_features_from_dicts(self, dicts, exclude=set()):
-        self._add_spacy_annotations(dicts)
-
-        for instance in dicts:
-            instance["feature_vector"] = []
-            instance["feature_names"] = []
-            for function in self.feature_functions:
-                count_dict = function(instance, exclude)
-                if count_dict is not None:
-                    instance["feature_vector"] += list(count_dict.values())
-                    instance["feature_names"] += list(count_dict.keys())
-
-        return dicts
-
-    def char_based_features(self, instance, exclude=set()):
+    def _char_based_features(self, instance, exclude=set()):
         counts = Counter({
             "alpha": 0,
             "upper": 0,
@@ -123,7 +144,7 @@ class Featurizer(BaseFeaturizer):
 
         return counts
 
-    def word_based_features(self, instance, exclude=set()):
+    def _word_based_features(self, instance, exclude=set()):
         counts = Counter()
 
         counts["stop_words"] = sum(instance["is_stop"])
@@ -144,7 +165,7 @@ class Featurizer(BaseFeaturizer):
 
         return counts
 
-    def pos_features(self, instance, exclude=set()):
+    def _pos_features(self, instance, exclude=set()):
 
         if "pos" in exclude:
             return
@@ -155,7 +176,7 @@ class Featurizer(BaseFeaturizer):
 
         return counts
 
-    def ner_features(self, instance, exclude=set()):
+    def _ner_features(self, instance, exclude=set()):
 
         if "ner" in exclude:
             return
@@ -197,14 +218,4 @@ class Featurizer(BaseFeaturizer):
                 is_stop=is_stop,
                 is_emoji=is_emoji,
             )
-
-
-if __name__ == "__main__":
-    from src.preprocessor.csv_preprocessor import CSVPreprocessor
-
-    preprocessor = CSVPreprocessor("../../data/tweets.csv", delimiter=",",
-                                   label_column="handle")
-    featurizer = Featurizer()
-    featurizer.extract_features(preprocessor)
-    x = 1
 

@@ -6,10 +6,38 @@ from src.base.preprocessor import BasePreprocessor
 
 
 class CSVPreprocessor(BasePreprocessor):
+    """
+    Preprocessor that is able to read a csv-file and do train/test/dev
+    split. A preprocessor instance serves as a data storage whose
+    instances can be extended with feature vectors and predictions.
+    """
 
     def __init__(self, train_filename=None, test_filename=None,
                  dev_filename=None, test_split=0, dev_split=0, delimiter="\t",
                  text_column="text", label_column="label", random_state=None):
+        """
+
+        :param train_filename: Train set file.
+        :type train_filename: str
+        :param test_filename:  Test set file.
+        :type test_filename: str
+        :param dev_filename: Dev set file.
+        :type dev_filename: str
+        :param test_split: Fraction of train set that should be used as
+            test set.
+        :type test_split: float
+        :param dev_split: Fraction of train set that should be used as
+            dev set.
+        :type dev_split: float
+        :param delimiter: Delimiter that is used in csv-file
+        :type delimiter: str
+        :param text_column: Column in csv-file containing text.
+        :type text_column: str
+        :param label_column: Column in csv-file containing label.
+        :type label_column: str
+        :param random_state: Random state for shuffling data.
+        :type random_state: int
+        """
 
         random.seed(random_state)
 
@@ -69,21 +97,66 @@ class CSVPreprocessor(BasePreprocessor):
                 self.dev = []
 
     def get_data(self):
+        """
+        Returns a tuple containing train, test and dev set.
+
+        :return: Tuple with train, test and dev set.
+        """
         return self.train, self.test, self.dev
 
     def get_train_data(self):
+        """
+        Returns train set.
+
+        :return: Train set.
+        """
         return self.train
 
     def get_test_data(self):
+        """
+       Returns test set.
+
+       :return: Test set.
+       """
         return self.test
 
     def get_dev_data(self):
+        """
+        Returns dev set.
+
+        :return: Dev set.
+        """
         return self.dev
 
     @classmethod
     def from_file(cls, train_filename=None, test_filename=None,
                   dev_filename=None, test_split=0, dev_split=0, delimiter="\t",
                   text_column="text", label_column="label", random_state=None):
+        """
+        Load data from csv-files.
+
+        :param train_filename: Train set file.
+        :type train_filename: str
+        :param test_filename:  Test set file.
+        :type test_filename: str
+        :param dev_filename: Dev set file.
+        :type dev_filename: str
+        :param test_split: Fraction of train set that should be used as
+            test set.
+        :type test_split: float
+        :param dev_split: Fraction of train set that should be used as
+            dev set.
+        :type dev_split: float
+        :param delimiter: Delimiter that is used in csv-file
+        :type delimiter: str
+        :param text_column: Column in csv-file containing text.
+        :type text_column: str
+        :param label_column: Column in csv-file containing label.
+        :type label_column: str
+        :param random_state: Random state for shuffling data.
+        :type random_state: int
+        :return: CSVPreprocessor instance
+        """
 
         return cls(train_filename, test_filename, dev_filename, test_split,
                    dev_split, delimiter, text_column, label_column,
