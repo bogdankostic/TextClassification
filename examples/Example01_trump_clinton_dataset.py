@@ -29,3 +29,6 @@ classifier.train(preprocessor)
 
 # 4) Evaluate on the test set
 classifier.evaluate(preprocessor)
+
+# 5) Write predictions on the test set to csv.
+preprocessor.write_csv("data/preds.tsv", set="test")

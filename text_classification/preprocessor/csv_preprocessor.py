@@ -146,7 +146,7 @@ class CSVPreprocessor(BasePreprocessor):
         :param dev_split: Fraction of train set that should be used as
             dev set.
         :type dev_split: float
-        :param delimiter: Delimiter that is used in csv-file
+        :param delimiter: Delimiter that is used in csv-file.
         :type delimiter: str
         :param text_column: Column in csv-file containing text.
         :type text_column: str
@@ -160,6 +160,38 @@ class CSVPreprocessor(BasePreprocessor):
         return cls(train_filename, test_filename, dev_filename, test_split,
                    dev_split, delimiter, text_column, label_column,
                    random_state)
+
+    def write_csv(self, filename, delimiter="\t", set="test"):
+        """
+        Write data (i.e. text, label, prediction) to a csv-file.
+
+        :param filename: File to write the data to.
+        :type filename: str
+        :param delimiter: Delimiter that is used in csv-file.
+        :type delimiter: str
+        :param set: Which data set to write.
+            Possible values: "train", "test", "dev"
+        :type set: str
+        """
+        if set == "test":
+            self._write_csv(filename, delimiter, self.get_test_data())
+        elif set == "dev":
+            self._write_csv(filename, delimiter, self.get_dev_data())
+        elif set == "train":
+            self._write_csv(filename, delimiter, self.get_train_data())
+        else:
+            raise ValueError(f"Arg set has to be one of the following values:"
+                             f" 'test', 'train', 'dev'. Arg set is: {set}")
+
+    def _write_csv(self, filename, delimiter, set):
+        with open(filename, "w") as file:
+            csv_writer = csv.writer(file, delimiter=delimiter)
+            csv_writer.writerow(["text", "label", "prediction"])
+            for instance in set:
+                row = [instance.get("text", ""),
+                       instance.get("label", ""),
+                       instance.get("prediction", "")]
+                csv_writer.writerow(row)
 
     @staticmethod
     def _extract_data(filename, delimiter, text_column, label_column):

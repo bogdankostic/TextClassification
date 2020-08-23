@@ -11,3 +11,7 @@ class BasePreprocessor(ABC):
     @abstractmethod
     def from_file(self, filename):
         pass
+
+    @abstractmethod
+    def write_csv(self, filename, delimiter):
+        pass
