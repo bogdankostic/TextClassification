@@ -29,6 +29,7 @@ Training a new classifier requires only three steps:
 3) Pass the data with extracted feature to a `Classifier`
 
 Code example:
+
 ..code-block:: python
     from text_classification.preprocessor.csv_preprocessor import CSVPreprocessor
     from text_classification.featurizer.tweet_featurizer import TweetFeaturizer
