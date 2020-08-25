@@ -1,0 +1,131 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>&lt;no title&gt; &#8212; TextClassification  documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <p># TextClassification: A Python Library for simple text classification</p>
+<p>## What is it?
+The purpose of this library is to make text classification easily available.
+It relies on three components which work together:
+- <strong>Preprocessor:</strong> Reads in data and stores feature vectors and predictions
+- <strong>Featurizer:</strong> Extracts features out of text data
+- <strong>Classifier:</strong> Uses extracted features to train a classification model
+and do inference on unseen instances</p>
+<p>## Installation
+To install this library, execute the following commands in your terminal:
+<code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/bogdankostic/TextClassification.git</span>
+<span class="pre">cd</span> <span class="pre">TextClassification</span>
+<span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span>
+<span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--editable</span> <span class="pre">.</span>
+<span class="pre">`</span></code></p>
+<p>## Usage
+Training a new classifier requires only three steps:
+1) Read data using a <cite>Preprocessor</cite>
+2) Extract features using a <cite>Featurizer</cite>
+3) Pass the data with extracted feature to a <cite>Classifier</cite></p>
+<p>Code example:
+<a href="#id1"><span class="problematic" id="id2">``</span></a><a href="#id3"><span class="problematic" id="id4">`</span></a>python
+from text_classification.preprocessor.csv_preprocessor import CSVPreprocessor
+from text_classification.featurizer.tweet_featurizer import TweetFeaturizer
+from text_classification.classifier.class_average import ClassAverageClassifier</p>
+<p>preprocessor = CSVPreprocessor(train_filename=”train.tsv”)</p>
+<p>featurizer = TweetFeaturizer()
+featurizer.extract_features(preprocessor)</p>
+<p>classifier = ClassAverageClassifier()
+classifier.train(preprocessor)
+<a href="#id5"><span class="problematic" id="id6">``</span></a><a href="#id7"><span class="problematic" id="id8">`</span></a></p>
+<p>More detailed examples can be found in the [examples](<a class="reference external" href="https://github.com/bogdankostic/TextClassification/tree/master/examples">https://github.com/bogdankostic/TextClassification/tree/master/examples</a>)
+directory.</p>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">TextClassification</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Bogdan Kostić.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/source/includeme.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
