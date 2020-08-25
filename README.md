@@ -10,7 +10,7 @@ and do inference on unseen instances
 
 ## Installation
 To install this library, execute the following commands in your terminal:
-```
+```bash
 git clone https://github.com/bogdankostic/TextClassification.git
 cd TextClassification
 pip install -r requirements.txt
