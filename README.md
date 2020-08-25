@@ -1,19 +1,47 @@
-# Final Assignment for "Programmierung 2"
-The final assignment consists of building a classifier.
+# TextClassification: A Python Library for simple text classification
 
-Requirements:  
-  - [ ] Download data and read them  
-  - [ ] Split data into train/test sets  
-  - [ ] Process data (tokenization, POS-tagging, ...)  
-  - [ ] Extract features (statistics) from data  
-  - [ ] Store statistics in a useful format  
-  - [ ] Visualize statistics  
-  - [ ] Use statistics as features for an automatic classification task  
-  - [ ] Save prediction on the test data in a separate file  
-  - [ ] Evaluate system's accuracy
-  
- ## Data
- I chose the *Hillary Clinton and Donald Trump Tweets* dataset available
- [here](https://www.kaggle.com/benhamner/clinton-trump-tweets).
+## What is it?
+The purpose of this library is to make text classification easily available.
+It relies on three components which work together: 
+- **Preprocessor:** Reads in data and stores feature vectors and predictions
+- **Featurizer:** Extracts features out of text data
+- **Classifier:** Uses extracted features to train a classification model
+and do inference on unseen instances
+
+## Installation
+To install this library, execute the following commands in your terminal:
+```
+git clone https://github.com/bogdankostic/TextClassification.git
+cd TextClassification
+pip install -r requirements.txt
+pip install --editable .
+```
+
+## Usage
+Training a new classifier requires only three steps: 
+1) Read data using a `Preprocessor` 
+2) Extract features using a `Featurizer` 
+3) Pass the data with extracted feature to a `Classifier`
+
+Code example:
+```python
+from text_classification.preprocessor.csv_preprocessor import CSVPreprocessor
+from text_classification.featurizer.tweet_featurizer import TweetFeaturizer
+from text_classification.classifier.class_average import ClassAverageClassifier
+
+preprocessor = CSVPreprocessor(train_filename="train.tsv")
+
+featurizer = TweetFeaturizer()
+featurizer.extract_features(preprocessor)
+
+classifier = ClassAverageClassifier()
+classifier.train(preprocessor)
+```
+
+More detailed examples can be found in the [examples](https://github.com/bogdankostic/TextClassification/tree/master/examples)
+directory.
+
+
+
  
  
