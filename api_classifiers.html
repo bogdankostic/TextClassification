@@ -161,7 +161,7 @@
 uniformity.</p>
 <dl class="py method">
 <dt id="text_classification.classifier.base.BaseClassifier.evaluate">
-<em class="property">abstract </em><code class="sig-name descname">evaluate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/classifier/base.html#BaseClassifier.evaluate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.classifier.base.BaseClassifier.evaluate" title="Permalink to this definition">¶</a></dt>
+<em class="property">abstract </em><code class="sig-name descname">evaluate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">preprocessot</span></em>, <em class="sig-param"><span class="n">evaluate_test</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">evaluate_dev</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/classifier/base.html#BaseClassifier.evaluate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.classifier.base.BaseClassifier.evaluate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -181,13 +181,13 @@ should be loaded from.</p>
 
 <dl class="py method">
 <dt id="text_classification.classifier.base.BaseClassifier.predict">
-<em class="property">abstract </em><code class="sig-name descname">predict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/classifier/base.html#BaseClassifier.predict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.classifier.base.BaseClassifier.predict" title="Permalink to this definition">¶</a></dt>
+<em class="property">abstract </em><code class="sig-name descname">predict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">preprocessor</span></em>, <em class="sig-param"><span class="n">predict_train</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">predict_test</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">predict_dev</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/classifier/base.html#BaseClassifier.predict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.classifier.base.BaseClassifier.predict" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="text_classification.classifier.base.BaseClassifier.save">
 <code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/classifier/base.html#BaseClassifier.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.classifier.base.BaseClassifier.save" title="Permalink to this definition">¶</a></dt>
-<dd><p>Saves current classifier instance in binary format</p>
+<dd><p>Saves current classifier instance in binary format.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>filename</strong> (<em>str</em>) – Name of the file where the classifier should be
@@ -198,7 +198,7 @@ saved.</p>
 
 <dl class="py method">
 <dt id="text_classification.classifier.base.BaseClassifier.train">
-<em class="property">abstract </em><code class="sig-name descname">train</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/classifier/base.html#BaseClassifier.train"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.classifier.base.BaseClassifier.train" title="Permalink to this definition">¶</a></dt>
+<em class="property">abstract </em><code class="sig-name descname">train</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">preprocessor</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/classifier/base.html#BaseClassifier.train"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.classifier.base.BaseClassifier.train" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -228,8 +228,8 @@ precision, recall and F1-scores.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="text_classification.classifier.class_average.ClassAverageClassifier.load_average_feature_values">
-<em class="property">classmethod </em><code class="sig-name descname">load_average_feature_values</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em>, <em class="sig-param"><span class="n">delimiter</span><span class="o">=</span><span class="default_value">'\t'</span></em>, <em class="sig-param"><span class="n">label_col</span><span class="o">=</span><span class="default_value">'label'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/classifier/class_average.html#ClassAverageClassifier.load_average_feature_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.classifier.class_average.ClassAverageClassifier.load_average_feature_values" title="Permalink to this definition">¶</a></dt>
+<dt id="text_classification.classifier.class_average.ClassAverageClassifier.load_average_feature_vectors">
+<em class="property">classmethod </em><code class="sig-name descname">load_average_feature_vectors</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em>, <em class="sig-param"><span class="n">delimiter</span><span class="o">=</span><span class="default_value">'\t'</span></em>, <em class="sig-param"><span class="n">label_col</span><span class="o">=</span><span class="default_value">'label'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/classifier/class_average.html#ClassAverageClassifier.load_average_feature_vectors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.classifier.class_average.ClassAverageClassifier.load_average_feature_vectors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Loads trained average vectors from a CSV-file and instantiates
 a ClassAverageClassifier instance-</p>
 <dl class="field-list simple">
@@ -284,8 +284,8 @@ instance,</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="text_classification.classifier.class_average.ClassAverageClassifier.save_average_feature_values">
-<code class="sig-name descname">save_average_feature_values</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em>, <em class="sig-param"><span class="n">delimiter</span><span class="o">=</span><span class="default_value">'\t'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/classifier/class_average.html#ClassAverageClassifier.save_average_feature_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.classifier.class_average.ClassAverageClassifier.save_average_feature_values" title="Permalink to this definition">¶</a></dt>
+<dt id="text_classification.classifier.class_average.ClassAverageClassifier.save_average_feature_vectors">
+<code class="sig-name descname">save_average_feature_vectors</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em>, <em class="sig-param"><span class="n">delimiter</span><span class="o">=</span><span class="default_value">'\t'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/classifier/class_average.html#ClassAverageClassifier.save_average_feature_vectors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.classifier.class_average.ClassAverageClassifier.save_average_feature_vectors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Saves the trained average vectors to a CSV-file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

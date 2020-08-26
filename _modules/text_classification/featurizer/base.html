@@ -150,6 +150,7 @@
             
   <h1>Source code for text_classification.featurizer.base</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
 
 
 <div class="viewcode-block" id="BaseFeaturizer"><a class="viewcode-back" href="../../../api_featurizers.html#text_classification.featurizer.base.BaseFeaturizer">[docs]</a><span class="k">class</span> <span class="nc">BaseFeaturizer</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
@@ -163,12 +164,39 @@
                        <span class="s1">&#39;PUNCT&#39;</span><span class="p">,</span> <span class="s1">&#39;SCONJ&#39;</span><span class="p">,</span> <span class="s1">&#39;SYM&#39;</span><span class="p">,</span> <span class="s1">&#39;VERB&#39;</span><span class="p">,</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;SPACE&#39;</span><span class="p">]</span>
 
 <div class="viewcode-block" id="BaseFeaturizer.extract_features"><a class="viewcode-back" href="../../../api_featurizers.html#text_classification.featurizer.base.BaseFeaturizer.extract_features">[docs]</a>    <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">extract_features</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">extract_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">preprocessor</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="nb">set</span><span class="p">()):</span>
         <span class="k">pass</span></div>
 
 <div class="viewcode-block" id="BaseFeaturizer.add_feature"><a class="viewcode-back" href="../../../api_featurizers.html#text_classification.featurizer.base.BaseFeaturizer.add_feature">[docs]</a>    <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">add_feature</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">pass</span></div></div>
+    <span class="k">def</span> <span class="nf">add_feature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature_extraction_function</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="BaseFeaturizer.save"><a class="viewcode-back" href="../../../api_featurizers.html#text_classification.featurizer.base.BaseFeaturizer.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Saves current featurizer instance in binary format.</span>
+
+<span class="sd">        :param filename: Name of the file where the featurizer should be</span>
+<span class="sd">            saved.</span>
+<span class="sd">        :type filename: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BaseFeaturizer.load"><a class="viewcode-back" href="../../../api_featurizers.html#text_classification.featurizer.base.BaseFeaturizer.load">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Loads a previously saved featurizer from a binary file.</span>
+
+<span class="sd">        :param filename: Name of the binary file that the featurizer</span>
+<span class="sd">            should be loaded from.</span>
+<span class="sd">        :type filename: str</span>
+
+<span class="sd">        :return: Classifier instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="n">featurizer</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">featurizer</span></div></div>
 </pre></div>
 
            </div>

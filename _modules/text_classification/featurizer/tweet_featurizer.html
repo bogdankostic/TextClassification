@@ -152,11 +152,15 @@
 <span></span><span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">cpu_count</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
 <span class="kn">from</span> <span class="nn">statistics</span> <span class="kn">import</span> <span class="n">mean</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
 
 <span class="kn">import</span> <span class="nn">spacy</span>
 <span class="kn">from</span> <span class="nn">spacymoji</span> <span class="kn">import</span> <span class="n">Emoji</span>
 
 <span class="kn">from</span> <span class="nn">text_classification.featurizer.base</span> <span class="kn">import</span> <span class="n">BaseFeaturizer</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="TweetFeaturizer"><a class="viewcode-back" href="../../../api_featurizers.html#text_classification.featurizer.tweet_featurizer.TweetFeaturizer">[docs]</a><span class="k">class</span> <span class="nc">TweetFeaturizer</span><span class="p">(</span><span class="n">BaseFeaturizer</span><span class="p">):</span>
@@ -220,10 +224,11 @@
 
 <span class="sd">        :param preprocessor: Preprocessor containing data to featurize.</span>
 <span class="sd">        :type preprocessor: BasePreprocessor</span>
-<span class="sd">        :param exclude: Set of features that shpuld be excluded from</span>
+<span class="sd">        :param exclude: Set of features that should be excluded from</span>
 <span class="sd">            resulting feature vectors.</span>
 <span class="sd">        :param exclude: Set[str]</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Extracting features...&quot;</span><span class="p">)</span>
 
         <span class="n">data_splits</span> <span class="o">=</span> <span class="n">preprocessor</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
 
@@ -239,7 +244,10 @@
                     <span class="n">count_dict</span> <span class="o">=</span> <span class="n">function</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">exclude</span><span class="p">)</span>
                     <span class="k">if</span> <span class="n">count_dict</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                         <span class="n">instance</span><span class="p">[</span><span class="s2">&quot;feature_vector&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="nb">list</span><span class="p">(</span><span class="n">count_dict</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
-                        <span class="n">instance</span><span class="p">[</span><span class="s2">&quot;feature_names&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="nb">list</span><span class="p">(</span><span class="n">count_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span></div>
+                        <span class="n">instance</span><span class="p">[</span><span class="s2">&quot;feature_names&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="nb">list</span><span class="p">(</span><span class="n">count_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Extracted features for &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="p">(</span><span class="o">*</span><span class="n">data_splits</span><span class="p">)))</span><span class="si">}</span><span class="s2"> instances.&quot;</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_char_based_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="nb">set</span><span class="p">()):</span>
         <span class="n">counts</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">({</span>
@@ -317,7 +325,6 @@
         <span class="k">return</span> <span class="n">counts</span>
 
     <span class="k">def</span> <span class="nf">_pos_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="nb">set</span><span class="p">()):</span>
-
         <span class="k">if</span> <span class="s2">&quot;pos&quot;</span> <span class="ow">in</span> <span class="n">exclude</span><span class="p">:</span>
             <span class="k">return</span>
 
@@ -328,7 +335,6 @@
         <span class="k">return</span> <span class="n">counts</span>
 
     <span class="k">def</span> <span class="nf">_ner_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="nb">set</span><span class="p">()):</span>
-
         <span class="k">if</span> <span class="s2">&quot;ner&quot;</span> <span class="ow">in</span> <span class="n">exclude</span><span class="p">:</span>
             <span class="k">return</span>
 
@@ -369,7 +375,6 @@
                 <span class="n">is_stop</span><span class="o">=</span><span class="n">is_stop</span><span class="p">,</span>
                 <span class="n">is_emoji</span><span class="o">=</span><span class="n">is_emoji</span><span class="p">,</span>
             <span class="p">)</span></div>
-
 </pre></div>
 
            </div>

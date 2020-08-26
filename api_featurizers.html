@@ -167,13 +167,40 @@ uniformity.</p>
 
 <dl class="py method">
 <dt id="text_classification.featurizer.base.BaseFeaturizer.add_feature">
-<em class="property">abstract </em><code class="sig-name descname">add_feature</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/featurizer/base.html#BaseFeaturizer.add_feature"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.featurizer.base.BaseFeaturizer.add_feature" title="Permalink to this definition">¶</a></dt>
+<em class="property">abstract </em><code class="sig-name descname">add_feature</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">feature_extraction_function</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/featurizer/base.html#BaseFeaturizer.add_feature"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.featurizer.base.BaseFeaturizer.add_feature" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="text_classification.featurizer.base.BaseFeaturizer.extract_features">
-<em class="property">abstract </em><code class="sig-name descname">extract_features</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/featurizer/base.html#BaseFeaturizer.extract_features"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.featurizer.base.BaseFeaturizer.extract_features" title="Permalink to this definition">¶</a></dt>
+<em class="property">abstract </em><code class="sig-name descname">extract_features</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">preprocessor</span></em>, <em class="sig-param"><span class="n">exclude</span><span class="o">=</span><span class="default_value">{}</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/featurizer/base.html#BaseFeaturizer.extract_features"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.featurizer.base.BaseFeaturizer.extract_features" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="py method">
+<dt id="text_classification.featurizer.base.BaseFeaturizer.load">
+<em class="property">classmethod </em><code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/featurizer/base.html#BaseFeaturizer.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.featurizer.base.BaseFeaturizer.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads a previously saved featurizer from a binary file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>str</em>) – Name of the binary file that the featurizer
+should be loaded from.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Classifier instance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="text_classification.featurizer.base.BaseFeaturizer.save">
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/featurizer/base.html#BaseFeaturizer.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.featurizer.base.BaseFeaturizer.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves current featurizer instance in binary format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>str</em>) – Name of the file where the featurizer should be
+saved.</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -208,7 +235,7 @@ adds feature vector and feature name for each instance in-place.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>preprocessor</strong> (<a class="reference internal" href="api_preprocessors.html#text_classification.preprocessor.base.BasePreprocessor" title="text_classification.preprocessor.base.BasePreprocessor"><em>BasePreprocessor</em></a>) – Preprocessor containing data to featurize.</p></li>
-<li><p><strong>exclude</strong> – Set of features that shpuld be excluded from
+<li><p><strong>exclude</strong> – Set of features that should be excluded from
 resulting feature vectors.</p></li>
 <li><p><strong>exclude</strong> – Set[str]</p></li>
 </ul>

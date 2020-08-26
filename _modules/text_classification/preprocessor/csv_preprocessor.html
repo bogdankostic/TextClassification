@@ -151,8 +151,11 @@
   <h1>Source code for text_classification.preprocessor.csv_preprocessor</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">csv</span>
 <span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">logging</span>
 
 <span class="kn">from</span> <span class="nn">text_classification.preprocessor.base</span> <span class="kn">import</span> <span class="n">BasePreprocessor</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="CSVPreprocessor"><a class="viewcode-back" href="../../../api_preprocessors.html#text_classification.preprocessor.csv_preprocessor.CSVPreprocessor">[docs]</a><span class="k">class</span> <span class="nc">CSVPreprocessor</span><span class="p">(</span><span class="n">BasePreprocessor</span><span class="p">):</span>
@@ -192,6 +195,8 @@
         <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">random_state</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">train_filename</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Reading </span><span class="si">{</span><span class="n">train_filename</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+
             <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_data</span><span class="p">(</span><span class="n">train_filename</span><span class="p">,</span> <span class="n">delimiter</span><span class="p">,</span> <span class="n">text_column</span><span class="p">,</span>
                                       <span class="n">label_column</span><span class="p">)</span>
             <span class="c1"># shuffle data if we want to use part of it as train or dev set</span>
@@ -222,25 +227,33 @@
             <span class="c1"># split data into train, test and dev sets</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">test</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:</span><span class="n">number_of_test_samples</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">dev</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">number_of_test_samples</span><span class="p">:</span>
-                           <span class="n">number_of_test_samples</span><span class="o">+</span><span class="n">number_of_dev_samples</span><span class="p">]</span>
+                            <span class="n">number_of_test_samples</span><span class="o">+</span><span class="n">number_of_dev_samples</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">train</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">number_of_test_samples</span><span class="o">+</span><span class="n">number_of_dev_samples</span><span class="p">:]</span>
 
             <span class="c1"># add external test and dev data</span>
             <span class="k">if</span> <span class="n">test_filename</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Reading </span><span class="si">{</span><span class="n">test_filename</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+
                 <span class="bp">self</span><span class="o">.</span><span class="n">test</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_data</span><span class="p">(</span><span class="n">test_filename</span><span class="p">,</span> <span class="n">delimiter</span><span class="p">,</span>
                                                 <span class="n">text_column</span><span class="p">,</span> <span class="n">label_column</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">dev_filename</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">dev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_data</span><span class="p">(</span><span class="n">dev_filename</span><span class="p">,</span> <span class="n">delimiter</span><span class="p">,</span>
-                                              <span class="n">text_column</span><span class="p">,</span> <span class="n">label_column</span><span class="p">)</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Reading </span><span class="si">{</span><span class="n">dev_filename</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">dev</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_data</span><span class="p">(</span><span class="n">dev_filename</span><span class="p">,</span> <span class="n">delimiter</span><span class="p">,</span>
+                                               <span class="n">text_column</span><span class="p">,</span> <span class="n">label_column</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">train</span> <span class="o">=</span> <span class="p">[]</span>
 
             <span class="k">if</span> <span class="n">test_filename</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Reading </span><span class="si">{</span><span class="n">test_filename</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+
                 <span class="bp">self</span><span class="o">.</span><span class="n">test</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_data</span><span class="p">(</span><span class="n">test_filename</span><span class="p">,</span> <span class="n">delimiter</span><span class="p">,</span>
                                                <span class="n">text_column</span><span class="p">,</span> <span class="n">label_column</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">test</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">if</span> <span class="n">dev_filename</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Reading </span><span class="si">{</span><span class="n">dev_filename</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+
                 <span class="bp">self</span><span class="o">.</span><span class="n">dev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_data</span><span class="p">(</span><span class="n">dev_filename</span><span class="p">,</span> <span class="n">delimiter</span><span class="p">,</span>
                                               <span class="n">text_column</span><span class="p">,</span> <span class="n">label_column</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
@@ -325,6 +338,7 @@
 <span class="sd">            Possible values: &quot;train&quot;, &quot;test&quot;, &quot;dev&quot;</span>
 <span class="sd">        :type set: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Writing </span><span class="si">{</span><span class="nb">set</span><span class="si">}</span><span class="s2"> data to </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">set</span> <span class="o">==</span> <span class="s2">&quot;test&quot;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_write_csv</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">delimiter</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_test_data</span><span class="p">())</span>
         <span class="k">elif</span> <span class="nb">set</span> <span class="o">==</span> <span class="s2">&quot;dev&quot;</span><span class="p">:</span>
@@ -345,12 +359,59 @@
                        <span class="n">instance</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;prediction&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)]</span>
                 <span class="n">csv_writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
 
+<div class="viewcode-block" id="CSVPreprocessor.write_feature_vectors"><a class="viewcode-back" href="../../../api_preprocessors.html#text_classification.preprocessor.csv_preprocessor.CSVPreprocessor.write_feature_vectors">[docs]</a>    <span class="k">def</span> <span class="nf">write_feature_vectors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="nb">set</span><span class="o">=</span><span class="s2">&quot;train&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Write extracted features to a csv-file.</span>
+
+<span class="sd">        :param filename: File to write the feature vectors to.</span>
+<span class="sd">        :type filename: str</span>
+<span class="sd">        :param delimiter: Delimiter that is used in csv-file.</span>
+<span class="sd">        :type delimiter: str</span>
+<span class="sd">        :param set: From which data set to write the feature vectors.</span>
+<span class="sd">            Possible values: &quot;train&quot;, &quot;test&quot;, &quot;dev&quot;</span>
+<span class="sd">        :type set: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Writing </span><span class="si">{</span><span class="nb">set</span><span class="si">}</span><span class="s2"> feature vectors to </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">set</span> <span class="o">==</span> <span class="s2">&quot;test&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_write_csv</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">delimiter</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_test_data</span><span class="p">())</span>
+        <span class="k">elif</span> <span class="nb">set</span> <span class="o">==</span> <span class="s2">&quot;dev&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_write_csv</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">delimiter</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dev_data</span><span class="p">())</span>
+        <span class="k">elif</span> <span class="nb">set</span> <span class="o">==</span> <span class="s2">&quot;train&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_write_csv</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">delimiter</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_train_data</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Arg set has to be one of the following values:&quot;</span>
+                             <span class="sa">f</span><span class="s2">&quot; &#39;test&#39;, &#39;train&#39;, &#39;dev&#39;. Arg set is: </span><span class="si">{</span><span class="nb">set</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_write_feature_vectors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">delimiter</span><span class="p">,</span> <span class="nb">set</span><span class="p">):</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="n">csv_writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="n">delimiter</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">feat_names</span> <span class="o">=</span> <span class="nb">set</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;feature_names&quot;</span><span class="p">]</span>
+                <span class="n">csv_writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">([</span><span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;prediction&quot;</span><span class="p">]</span> <span class="o">+</span>
+                                    <span class="n">feat_names</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Cannot write feature vectors for empty set.&quot;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;No feature vectors available. Please extract &quot;</span>
+                               <span class="s2">&quot;features before wanting to write feature &quot;</span>
+                               <span class="s2">&quot;vectors.&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">instance</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">:</span>
+                <span class="n">row</span> <span class="o">=</span> <span class="p">[</span><span class="n">instance</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+                       <span class="n">instance</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+                       <span class="n">instance</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;prediction&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)]</span> <span class="o">+</span> \
+                      <span class="n">instance</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;feature_names&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">feat</span> <span class="ow">in</span> <span class="n">feat_names</span><span class="p">])</span>
+                <span class="n">csv_writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_extract_data</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">delimiter</span><span class="p">,</span> <span class="n">text_column</span><span class="p">,</span> <span class="n">label_column</span><span class="p">):</span>
-        <span class="c1"># TODO what happens if empty csv-file? (next might raise an Error)</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
             <span class="n">csv_reader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="n">delimiter</span><span class="p">)</span>
-            <span class="n">headers</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">csv_reader</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">headers</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">csv_reader</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">StopIteration</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">EOFError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">&#39; is empty. Please provide a &quot;</span>
+                               <span class="sa">f</span><span class="s2">&quot;non-empty file or set filename to &#39;None&#39; if &quot;</span>
+                               <span class="sa">f</span><span class="s2">&quot;you want to use an empty CSVPreprocessor.&quot;</span><span class="p">)</span>
             <span class="n">text_col_idx</span> <span class="o">=</span> <span class="n">headers</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">text_column</span><span class="p">)</span>
             <span class="n">label_col_idx</span> <span class="o">=</span> <span class="n">headers</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">label_column</span><span class="p">)</span>
             <span class="n">data</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="n">text_col_idx</span><span class="p">],</span> <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="n">label_col_idx</span><span class="p">]}</span>
