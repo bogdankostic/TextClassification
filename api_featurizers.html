@@ -1,0 +1,279 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Featurizers &mdash; TextClassification 0.0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Classifiers" href="api_classifiers.html" />
+    <link rel="prev" title="Preprocessors" href="api_preprocessors.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> TextClassification
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="api_preprocessors.html">Preprocessors</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Featurizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_classifiers.html">Classifiers</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">TextClassification</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Featurizers</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/api_featurizers.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-text_classification.featurizer.base">
+<span id="featurizers"></span><h1>Featurizers<a class="headerlink" href="#module-text_classification.featurizer.base" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="text_classification.featurizer.base.BaseFeaturizer">
+<em class="property">class </em><code class="sig-prename descclassname">text_classification.featurizer.base.</code><code class="sig-name descname">BaseFeaturizer</code><a class="reference internal" href="_modules/text_classification/featurizer/base.html#BaseFeaturizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.featurizer.base.BaseFeaturizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<p>Base class that all featurizer classes should inherit from to ensure
+uniformity.</p>
+<dl class="py attribute">
+<dt id="text_classification.featurizer.base.BaseFeaturizer.COARSE_POS_TAGS">
+<code class="sig-name descname">COARSE_POS_TAGS</code><em class="property"> = ['ADJ', 'ADP', 'ADV', 'AUX', 'CONJ', 'CCONJ', 'DET', 'INTJ', 'NOUN', 'NUM', 'PART', 'PRON', 'PROPN', 'PUNCT', 'SCONJ', 'SYM', 'VERB', 'X', 'SPACE']</em><a class="headerlink" href="#text_classification.featurizer.base.BaseFeaturizer.COARSE_POS_TAGS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="text_classification.featurizer.base.BaseFeaturizer.add_feature">
+<em class="property">abstract </em><code class="sig-name descname">add_feature</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/featurizer/base.html#BaseFeaturizer.add_feature"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.featurizer.base.BaseFeaturizer.add_feature" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="text_classification.featurizer.base.BaseFeaturizer.extract_features">
+<em class="property">abstract </em><code class="sig-name descname">extract_features</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/featurizer/base.html#BaseFeaturizer.extract_features"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.featurizer.base.BaseFeaturizer.extract_features" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-text_classification.featurizer.tweet_featurizer"></span><dl class="py class">
+<dt id="text_classification.featurizer.tweet_featurizer.TweetFeaturizer">
+<em class="property">class </em><code class="sig-prename descclassname">text_classification.featurizer.tweet_featurizer.</code><code class="sig-name descname">TweetFeaturizer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">lang_model</span><span class="o">=</span><span class="default_value">'en_core_web_sm'</span></em>, <em class="sig-param"><span class="n">normalize</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/featurizer/tweet_featurizer.html#TweetFeaturizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.featurizer.tweet_featurizer.TweetFeaturizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#text_classification.featurizer.base.BaseFeaturizer" title="text_classification.featurizer.base.BaseFeaturizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">text_classification.featurizer.base.BaseFeaturizer</span></code></a></p>
+<p>Featurizer that extracts features from tweets, i.e. it doesn’t
+contain any paragraph-based features as these don’t apply for
+tweets.</p>
+<dl class="py method">
+<dt id="text_classification.featurizer.tweet_featurizer.TweetFeaturizer.add_feature">
+<code class="sig-name descname">add_feature</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">feature_extraction_function</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/featurizer/tweet_featurizer.html#TweetFeaturizer.add_feature"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.featurizer.tweet_featurizer.TweetFeaturizer.add_feature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a custom feature extraction function to the predefined
+ones. The feature extraction function must take as input a
+dictionary containing a key ‘text’ and return a dict with
+with ‘feature_names’ and ‘feature_vector’ as keys.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>feature_extraction_function</strong> (<em>function</em>) – Custom function that
+extracts features from text.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="text_classification.featurizer.tweet_featurizer.TweetFeaturizer.extract_features">
+<code class="sig-name descname">extract_features</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">preprocessor</span></em>, <em class="sig-param"><span class="n">exclude</span><span class="o">=</span><span class="default_value">{}</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/featurizer/tweet_featurizer.html#TweetFeaturizer.extract_features"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.featurizer.tweet_featurizer.TweetFeaturizer.extract_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts the features for all splits in the preprocessor and
+adds feature vector and feature name for each instance in-place.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>preprocessor</strong> (<a class="reference internal" href="api_preprocessors.html#text_classification.preprocessor.base.BasePreprocessor" title="text_classification.preprocessor.base.BasePreprocessor"><em>BasePreprocessor</em></a>) – Preprocessor containing data to featurize.</p></li>
+<li><p><strong>exclude</strong> – Set of features that shpuld be excluded from
+resulting feature vectors.</p></li>
+<li><p><strong>exclude</strong> – Set[str]</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="api_classifiers.html" class="btn btn-neutral float-right" title="Classifiers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="api_preprocessors.html" class="btn btn-neutral float-left" title="Preprocessors" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Bogdan Kostić
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

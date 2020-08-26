@@ -82,9 +82,9 @@
             
               <p class="caption"><span class="caption-text">API Reference</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../api.html">Preprocessors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../api.html#module-text_classification.featurizer.base">Featurizers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../api.html#module-text_classification.classifier.base">Classifiers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_preprocessors.html">Preprocessors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_featurizers.html">Featurizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_classifiers.html">Classifiers</a></li>
 </ul>
 
             
@@ -159,7 +159,7 @@
 <span class="kn">from</span> <span class="nn">text_classification.featurizer.base</span> <span class="kn">import</span> <span class="n">BaseFeaturizer</span>
 
 
-<div class="viewcode-block" id="TweetFeaturizer"><a class="viewcode-back" href="../../../api.html#text_classification.featurizer.tweet_featurizer.TweetFeaturizer">[docs]</a><span class="k">class</span> <span class="nc">TweetFeaturizer</span><span class="p">(</span><span class="n">BaseFeaturizer</span><span class="p">):</span>
+<div class="viewcode-block" id="TweetFeaturizer"><a class="viewcode-back" href="../../../api_featurizers.html#text_classification.featurizer.tweet_featurizer.TweetFeaturizer">[docs]</a><span class="k">class</span> <span class="nc">TweetFeaturizer</span><span class="p">(</span><span class="n">BaseFeaturizer</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Featurizer that extracts features from tweets, i.e. it doesn&#39;t</span>
 <span class="sd">    contain any paragraph-based features as these don&#39;t apply for</span>
@@ -200,7 +200,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_ner_features</span><span class="p">,</span>
         <span class="p">]</span>
 
-<div class="viewcode-block" id="TweetFeaturizer.add_feature"><a class="viewcode-back" href="../../../api.html#text_classification.featurizer.tweet_featurizer.TweetFeaturizer.add_feature">[docs]</a>    <span class="k">def</span> <span class="nf">add_feature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature_extraction_function</span><span class="p">):</span>
+<div class="viewcode-block" id="TweetFeaturizer.add_feature"><a class="viewcode-back" href="../../../api_featurizers.html#text_classification.featurizer.tweet_featurizer.TweetFeaturizer.add_feature">[docs]</a>    <span class="k">def</span> <span class="nf">add_feature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature_extraction_function</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Adds a custom feature extraction function to the predefined</span>
 <span class="sd">        ones. The feature extraction function must take as input a</span>
@@ -213,7 +213,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">feature_functions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">feature_extraction_function</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="TweetFeaturizer.extract_features"><a class="viewcode-back" href="../../../api.html#text_classification.featurizer.tweet_featurizer.TweetFeaturizer.extract_features">[docs]</a>    <span class="k">def</span> <span class="nf">extract_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">preprocessor</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="nb">set</span><span class="p">()):</span>
+<div class="viewcode-block" id="TweetFeaturizer.extract_features"><a class="viewcode-back" href="../../../api_featurizers.html#text_classification.featurizer.tweet_featurizer.TweetFeaturizer.extract_features">[docs]</a>    <span class="k">def</span> <span class="nf">extract_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">preprocessor</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="nb">set</span><span class="p">()):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Extracts the features for all splits in the preprocessor and</span>
 <span class="sd">        adds feature vector and feature name for each instance in-place.</span>

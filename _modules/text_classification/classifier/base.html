@@ -82,9 +82,9 @@
             
               <p class="caption"><span class="caption-text">API Reference</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../api.html">Preprocessors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../api.html#module-text_classification.featurizer.base">Featurizers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../api.html#module-text_classification.classifier.base">Classifiers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_preprocessors.html">Preprocessors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_featurizers.html">Featurizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_classifiers.html">Classifiers</a></li>
 </ul>
 
             
@@ -153,25 +153,25 @@
 <span class="kn">import</span> <span class="nn">pickle</span>
 
 
-<div class="viewcode-block" id="BaseClassifier"><a class="viewcode-back" href="../../../api.html#text_classification.classifier.base.BaseClassifier">[docs]</a><span class="k">class</span> <span class="nc">BaseClassifier</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+<div class="viewcode-block" id="BaseClassifier"><a class="viewcode-back" href="../../../api_classifiers.html#text_classification.classifier.base.BaseClassifier">[docs]</a><span class="k">class</span> <span class="nc">BaseClassifier</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Base class that all classifier classes should inherit from to ensure</span>
 <span class="sd">    uniformity.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="BaseClassifier.train"><a class="viewcode-back" href="../../../api.html#text_classification.classifier.base.BaseClassifier.train">[docs]</a>    <span class="nd">@abstractmethod</span>
+<div class="viewcode-block" id="BaseClassifier.train"><a class="viewcode-back" href="../../../api_classifiers.html#text_classification.classifier.base.BaseClassifier.train">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">pass</span></div>
 
-<div class="viewcode-block" id="BaseClassifier.predict"><a class="viewcode-back" href="../../../api.html#text_classification.classifier.base.BaseClassifier.predict">[docs]</a>    <span class="nd">@abstractmethod</span>
+<div class="viewcode-block" id="BaseClassifier.predict"><a class="viewcode-back" href="../../../api_classifiers.html#text_classification.classifier.base.BaseClassifier.predict">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">pass</span></div>
 
-<div class="viewcode-block" id="BaseClassifier.evaluate"><a class="viewcode-back" href="../../../api.html#text_classification.classifier.base.BaseClassifier.evaluate">[docs]</a>    <span class="nd">@abstractmethod</span>
+<div class="viewcode-block" id="BaseClassifier.evaluate"><a class="viewcode-back" href="../../../api_classifiers.html#text_classification.classifier.base.BaseClassifier.evaluate">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">pass</span></div>
 
-<div class="viewcode-block" id="BaseClassifier.save"><a class="viewcode-back" href="../../../api.html#text_classification.classifier.base.BaseClassifier.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+<div class="viewcode-block" id="BaseClassifier.save"><a class="viewcode-back" href="../../../api_classifiers.html#text_classification.classifier.base.BaseClassifier.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Saves current classifier instance in binary format</span>
 
@@ -182,7 +182,7 @@
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
             <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="BaseClassifier.load"><a class="viewcode-back" href="../../../api.html#text_classification.classifier.base.BaseClassifier.load">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="BaseClassifier.load"><a class="viewcode-back" href="../../../api_classifiers.html#text_classification.classifier.base.BaseClassifier.load">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Loads a previously saved classifier from a binary file.</span>

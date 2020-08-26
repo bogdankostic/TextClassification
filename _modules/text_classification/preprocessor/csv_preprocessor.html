@@ -82,9 +82,9 @@
             
               <p class="caption"><span class="caption-text">API Reference</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../api.html">Preprocessors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../api.html#module-text_classification.featurizer.base">Featurizers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../api.html#module-text_classification.classifier.base">Classifiers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_preprocessors.html">Preprocessors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_featurizers.html">Featurizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_classifiers.html">Classifiers</a></li>
 </ul>
 
             
@@ -155,7 +155,7 @@
 <span class="kn">from</span> <span class="nn">text_classification.preprocessor.base</span> <span class="kn">import</span> <span class="n">BasePreprocessor</span>
 
 
-<div class="viewcode-block" id="CSVPreprocessor"><a class="viewcode-back" href="../../../api.html#text_classification.preprocessor.csv_preprocessor.CSVPreprocessor">[docs]</a><span class="k">class</span> <span class="nc">CSVPreprocessor</span><span class="p">(</span><span class="n">BasePreprocessor</span><span class="p">):</span>
+<div class="viewcode-block" id="CSVPreprocessor"><a class="viewcode-back" href="../../../api_preprocessors.html#text_classification.preprocessor.csv_preprocessor.CSVPreprocessor">[docs]</a><span class="k">class</span> <span class="nc">CSVPreprocessor</span><span class="p">(</span><span class="n">BasePreprocessor</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Preprocessor that is able to read a csv-file and do train/test/dev</span>
 <span class="sd">    split. A preprocessor instance serves as a data storage whose</span>
@@ -246,7 +246,7 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">dev</span> <span class="o">=</span> <span class="p">[]</span>
 
-<div class="viewcode-block" id="CSVPreprocessor.get_data"><a class="viewcode-back" href="../../../api.html#text_classification.preprocessor.csv_preprocessor.CSVPreprocessor.get_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="CSVPreprocessor.get_data"><a class="viewcode-back" href="../../../api_preprocessors.html#text_classification.preprocessor.csv_preprocessor.CSVPreprocessor.get_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a tuple containing train, test and dev set.</span>
 
@@ -254,7 +254,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">test</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dev</span></div>
 
-<div class="viewcode-block" id="CSVPreprocessor.get_train_data"><a class="viewcode-back" href="../../../api.html#text_classification.preprocessor.csv_preprocessor.CSVPreprocessor.get_train_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_train_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="CSVPreprocessor.get_train_data"><a class="viewcode-back" href="../../../api_preprocessors.html#text_classification.preprocessor.csv_preprocessor.CSVPreprocessor.get_train_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_train_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns train set.</span>
 
@@ -262,7 +262,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">train</span></div>
 
-<div class="viewcode-block" id="CSVPreprocessor.get_test_data"><a class="viewcode-back" href="../../../api.html#text_classification.preprocessor.csv_preprocessor.CSVPreprocessor.get_test_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_test_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="CSVPreprocessor.get_test_data"><a class="viewcode-back" href="../../../api_preprocessors.html#text_classification.preprocessor.csv_preprocessor.CSVPreprocessor.get_test_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_test_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">       Returns test set.</span>
 
@@ -271,7 +271,7 @@
 <span class="sd">       &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">test</span></div>
 
-<div class="viewcode-block" id="CSVPreprocessor.get_dev_data"><a class="viewcode-back" href="../../../api.html#text_classification.preprocessor.csv_preprocessor.CSVPreprocessor.get_dev_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_dev_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="CSVPreprocessor.get_dev_data"><a class="viewcode-back" href="../../../api_preprocessors.html#text_classification.preprocessor.csv_preprocessor.CSVPreprocessor.get_dev_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_dev_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns dev set.</span>
 
@@ -279,7 +279,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dev</span></div>
 
-<div class="viewcode-block" id="CSVPreprocessor.from_file"><a class="viewcode-back" href="../../../api.html#text_classification.preprocessor.csv_preprocessor.CSVPreprocessor.from_file">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="CSVPreprocessor.from_file"><a class="viewcode-back" href="../../../api_preprocessors.html#text_classification.preprocessor.csv_preprocessor.CSVPreprocessor.from_file">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_file</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">train_filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">test_filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                   <span class="n">dev_filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">test_split</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dev_split</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span>
                   <span class="n">text_column</span><span class="o">=</span><span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="n">label_column</span><span class="o">=</span><span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -313,7 +313,7 @@
                    <span class="n">dev_split</span><span class="p">,</span> <span class="n">delimiter</span><span class="p">,</span> <span class="n">text_column</span><span class="p">,</span> <span class="n">label_column</span><span class="p">,</span>
                    <span class="n">random_state</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="CSVPreprocessor.write_csv"><a class="viewcode-back" href="../../../api.html#text_classification.preprocessor.csv_preprocessor.CSVPreprocessor.write_csv">[docs]</a>    <span class="k">def</span> <span class="nf">write_csv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="nb">set</span><span class="o">=</span><span class="s2">&quot;test&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="CSVPreprocessor.write_csv"><a class="viewcode-back" href="../../../api_preprocessors.html#text_classification.preprocessor.csv_preprocessor.CSVPreprocessor.write_csv">[docs]</a>    <span class="k">def</span> <span class="nf">write_csv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="nb">set</span><span class="o">=</span><span class="s2">&quot;test&quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Write data (i.e. text, label, prediction) to a csv-file.</span>
 

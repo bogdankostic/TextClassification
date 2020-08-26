@@ -24,9 +24,9 @@ and install from source:
    :maxdepth: 2
    :caption: API Reference
 
-   api
-
-
+   api_preprocessors
+   api_featurizers
+   api_classifiers
 
 Indices and tables
 ==================

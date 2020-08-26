@@ -82,9 +82,9 @@
             
               <p class="caption"><span class="caption-text">API Reference</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../api.html">Preprocessors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../api.html#module-text_classification.featurizer.base">Featurizers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../api.html#module-text_classification.classifier.base">Classifiers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_preprocessors.html">Preprocessors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_featurizers.html">Featurizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_classifiers.html">Classifiers</a></li>
 </ul>
 
             
@@ -158,7 +158,7 @@
 <span class="kn">from</span> <span class="nn">text_classification.classifier.base</span> <span class="kn">import</span> <span class="n">BaseClassifier</span>
 
 
-<div class="viewcode-block" id="ClassAverageClassifier"><a class="viewcode-back" href="../../../api.html#text_classification.classifier.class_average.ClassAverageClassifier">[docs]</a><span class="k">class</span> <span class="nc">ClassAverageClassifier</span><span class="p">(</span><span class="n">BaseClassifier</span><span class="p">):</span>
+<div class="viewcode-block" id="ClassAverageClassifier"><a class="viewcode-back" href="../../../api_classifiers.html#text_classification.classifier.class_average.ClassAverageClassifier">[docs]</a><span class="k">class</span> <span class="nc">ClassAverageClassifier</span><span class="p">(</span><span class="n">BaseClassifier</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A classifier that computes average feature values for each class and</span>
 <span class="sd">    predicts the class whose average feature vector is most similar to</span>
@@ -171,7 +171,7 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_average_feature_values</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
 
-<div class="viewcode-block" id="ClassAverageClassifier.train"><a class="viewcode-back" href="../../../api.html#text_classification.classifier.class_average.ClassAverageClassifier.train">[docs]</a>    <span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">preprocessor</span><span class="p">):</span>
+<div class="viewcode-block" id="ClassAverageClassifier.train"><a class="viewcode-back" href="../../../api_classifiers.html#text_classification.classifier.class_average.ClassAverageClassifier.train">[docs]</a>    <span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">preprocessor</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Computes the average feature vector for each class in the pre-</span>
 <span class="sd">        processor&#39;s train set.</span>
@@ -209,7 +209,7 @@
 
         <span class="k">return</span> <span class="bp">self</span></div>
 
-<div class="viewcode-block" id="ClassAverageClassifier.evaluate"><a class="viewcode-back" href="../../../api.html#text_classification.classifier.class_average.ClassAverageClassifier.evaluate">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">preprocessor</span><span class="p">,</span> <span class="n">evaluate_test</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">evaluate_dev</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="ClassAverageClassifier.evaluate"><a class="viewcode-back" href="../../../api_classifiers.html#text_classification.classifier.class_average.ClassAverageClassifier.evaluate">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">preprocessor</span><span class="p">,</span> <span class="n">evaluate_test</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">evaluate_dev</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Evaluates the current model on the preprocessor&#39;s test and/or</span>
 <span class="sd">        dev set and prints a classification report containing accuracy,</span>
@@ -247,7 +247,7 @@
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;___Evaluation metrics on dev set___&quot;</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">gold_labels</span><span class="p">,</span> <span class="n">predictions</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="ClassAverageClassifier.predict"><a class="viewcode-back" href="../../../api.html#text_classification.classifier.class_average.ClassAverageClassifier.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">preprocessor</span><span class="p">,</span> <span class="n">predict_train</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">predict_test</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<div class="viewcode-block" id="ClassAverageClassifier.predict"><a class="viewcode-back" href="../../../api_classifiers.html#text_classification.classifier.class_average.ClassAverageClassifier.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">preprocessor</span><span class="p">,</span> <span class="n">predict_train</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">predict_test</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="n">predict_dev</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Makes predictions for data inside preprocessor in-place, i.e.</span>
@@ -279,7 +279,7 @@
             <span class="n">dev_set</span> <span class="o">=</span> <span class="n">preprocessor</span><span class="o">.</span><span class="n">get_dev_data</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">predict_from_dicts</span><span class="p">(</span><span class="n">dev_set</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClassAverageClassifier.predict_from_dicts"><a class="viewcode-back" href="../../../api.html#text_classification.classifier.class_average.ClassAverageClassifier.predict_from_dicts">[docs]</a>    <span class="k">def</span> <span class="nf">predict_from_dicts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dicts</span><span class="p">):</span>
+<div class="viewcode-block" id="ClassAverageClassifier.predict_from_dicts"><a class="viewcode-back" href="../../../api_classifiers.html#text_classification.classifier.class_average.ClassAverageClassifier.predict_from_dicts">[docs]</a>    <span class="k">def</span> <span class="nf">predict_from_dicts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dicts</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Make predictions on a a list of dictionaries. Dictionaries must</span>
 <span class="sd">        contain key &#39;feature_vector&#39; consisting of the feature vector.</span>
@@ -306,7 +306,7 @@
 
         <span class="k">return</span> <span class="n">dicts</span></div>
 
-<div class="viewcode-block" id="ClassAverageClassifier.save_average_feature_values"><a class="viewcode-back" href="../../../api.html#text_classification.classifier.class_average.ClassAverageClassifier.save_average_feature_values">[docs]</a>    <span class="k">def</span> <span class="nf">save_average_feature_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="ClassAverageClassifier.save_average_feature_values"><a class="viewcode-back" href="../../../api_classifiers.html#text_classification.classifier.class_average.ClassAverageClassifier.save_average_feature_values">[docs]</a>    <span class="k">def</span> <span class="nf">save_average_feature_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Saves the trained average vectors to a CSV-file.</span>
 
@@ -322,7 +322,7 @@
                 <span class="n">csv_writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">([</span><span class="n">label</span><span class="p">]</span> <span class="o">+</span>
                                     <span class="bp">self</span><span class="o">.</span><span class="n">_average_feature_values</span><span class="p">[</span><span class="n">label</span><span class="p">])</span></div>
 
-<div class="viewcode-block" id="ClassAverageClassifier.load_average_feature_values"><a class="viewcode-back" href="../../../api.html#text_classification.classifier.class_average.ClassAverageClassifier.load_average_feature_values">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="ClassAverageClassifier.load_average_feature_values"><a class="viewcode-back" href="../../../api_classifiers.html#text_classification.classifier.class_average.ClassAverageClassifier.load_average_feature_values">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">load_average_feature_values</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span>
                                     <span class="n">label_col</span><span class="o">=</span><span class="s2">&quot;label&quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
