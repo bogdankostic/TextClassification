@@ -1,11 +1,15 @@
 from multiprocessing import cpu_count
 from collections import Counter
 from statistics import mean
+import logging
+import itertools
 
 import spacy
 from spacymoji import Emoji
 
 from text_classification.featurizer.base import BaseFeaturizer
+
+logger = logging.getLogger(__name__)
 
 
 class TweetFeaturizer(BaseFeaturizer):
@@ -73,6 +77,7 @@ class TweetFeaturizer(BaseFeaturizer):
             resulting feature vectors.
         :param exclude: Set[str]
         """
+        logger.info("Extracting features...")
 
         data_splits = preprocessor.get_data()
 
@@ -89,6 +94,9 @@ class TweetFeaturizer(BaseFeaturizer):
                     if count_dict is not None:
                         instance["feature_vector"] += list(count_dict.values())
                         instance["feature_names"] += list(count_dict.keys())
+
+        logger.info(f"Extracted features for "
+                    f"{len(list(itertools.chain(*data_splits)))} instances.")
 
     def _char_based_features(self, instance, exclude=set()):
         counts = Counter({

@@ -1,7 +1,10 @@
 import csv
 import random
+import logging
 
 from text_classification.preprocessor.base import BasePreprocessor
+
+logger = logging.getLogger(__name__)
 
 
 class CSVPreprocessor(BasePreprocessor):
@@ -41,6 +44,8 @@ class CSVPreprocessor(BasePreprocessor):
         random.seed(random_state)
 
         if train_filename:
+            logger.info(f"Reading {train_filename}...")
+
             data = self._extract_data(train_filename, delimiter, text_column,
                                       label_column)
             # shuffle data if we want to use part of it as train or dev set
@@ -76,20 +81,28 @@ class CSVPreprocessor(BasePreprocessor):
 
             # add external test and dev data
             if test_filename:
+                logging.info(f"Reading {test_filename}...")
+
                 self.test += self._extract_data(test_filename, delimiter,
                                                 text_column, label_column)
             if dev_filename:
-                self.dev = self._extract_data(dev_filename, delimiter,
-                                              text_column, label_column)
+                logging.info(f"Reading {dev_filename}...")
+
+                self.dev += self._extract_data(dev_filename, delimiter,
+                                               text_column, label_column)
         else:
             self.train = []
 
             if test_filename:
+                logging.info(f"Reading {test_filename}...")
+
                 self.test = self._extract_data(test_filename, delimiter,
                                                text_column, label_column)
             else:
                 self.test = []
             if dev_filename:
+                logging.info(f"Reading {dev_filename}...")
+
                 self.dev = self._extract_data(dev_filename, delimiter,
                                               text_column, label_column)
             else:
@@ -174,6 +187,7 @@ class CSVPreprocessor(BasePreprocessor):
             Possible values: "train", "test", "dev"
         :type set: str
         """
+        logger.info(f"Writing {set} data to {filename}...")
         if set == "test":
             self._write_csv(filename, delimiter, self.get_test_data())
         elif set == "dev":

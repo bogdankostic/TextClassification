@@ -6,6 +6,8 @@ from sklearn.metrics import classification_report
 
 from text_classification.classifier.base import BaseClassifier
 
+logger = logging.getLogger(__name__)
+
 
 class ClassAverageClassifier(BaseClassifier):
     """
@@ -31,10 +33,12 @@ class ClassAverageClassifier(BaseClassifier):
         """
         train_set = preprocessor.get_train_data()
         if not train_set:
-            logging.warning("Classifier won't be trained as Preprocessor's "
+            logger.warning("Classifier won't be trained as Preprocessor's "
                             "train set is empty.")
             return self
 
+        logger.info(f"Training the classifier on {len(train_set)} training "
+                    f"instances...")
         # split train set in different classes
         split_by_label = defaultdict(list)
         for instance in train_set:
@@ -54,6 +58,8 @@ class ClassAverageClassifier(BaseClassifier):
                                                    in grouped_feature_values]
 
         self.feature_names = train_set[0]["feature_names"]
+
+        logger.info("Training done.")
 
         # evaluate on dev set
         self.evaluate(preprocessor, evaluate_test=False, evaluate_dev=True)
@@ -90,8 +96,8 @@ class ClassAverageClassifier(BaseClassifier):
             assert len(gold_labels) > 0, \
                 "Evaluation on empty test set is not possible."
 
-            print("___Evaluation metrics on test set___")
-            print(classification_report(gold_labels, predictions))
+            logger.info(f"\n___Evaluation metrics on test set___\n"
+                        f"{classification_report(gold_labels, predictions)}")
 
         if evaluate_dev:
             predictions = []
@@ -105,8 +111,8 @@ class ClassAverageClassifier(BaseClassifier):
             assert len(gold_labels) > 0, \
                 "Evaluation on empty test set is not possible."
 
-            print("___Evaluation metrics on dev set___")
-            print(classification_report(gold_labels, predictions))
+            logger.info(f"\n___Evaluation metrics on dev set___\n"
+                        f"{classification_report(gold_labels, predictions)}")
 
     def predict(self, preprocessor, predict_train=False, predict_test=True,
                 predict_dev=False):
@@ -130,14 +136,20 @@ class ClassAverageClassifier(BaseClassifier):
 
         if predict_train:
             train_set = preprocessor.get_train_data()
+            logger.info(f"Making predictions on {len(train_set)} instances in "
+                        f"train set.")
             self.predict_from_dicts(train_set)
 
         if predict_test:
             test_set = preprocessor.get_test_data()
+            logger.info(f"Making predictions on {len(test_set)} instances in "
+                        f"test set.")
             self.predict_from_dicts(test_set)
 
         if predict_dev:
             dev_set = preprocessor.get_dev_data()
+            logger.info(f"Making predictions on {len(dev_set)} instances in "
+                        f"dev set.")
             self.predict_from_dicts(dev_set)
 
     def predict_from_dicts(self, dicts):
@@ -167,7 +179,7 @@ class ClassAverageClassifier(BaseClassifier):
 
         return dicts
 
-    def save_average_feature_values(self, filename, delimiter="\t"):
+    def save_average_feature_vectors(self, filename, delimiter="\t"):
         """
         Saves the trained average vectors to a CSV-file.
 
@@ -176,6 +188,7 @@ class ClassAverageClassifier(BaseClassifier):
         :param delimiter: Delimiter used in CSV-file.
         :type delimiter: str
         """
+        logger.info(f"Saving average feature vectors to {filename}...")
         with open(filename, "w") as file:
             csv_writer = csv.writer(file, delimiter=delimiter)
             csv_writer.writerow(["label"] + self.feature_names)
@@ -184,8 +197,8 @@ class ClassAverageClassifier(BaseClassifier):
                                     self._average_feature_values[label])
 
     @classmethod
-    def load_average_feature_values(cls, filename, delimiter="\t",
-                                    label_col="label"):
+    def load_average_feature_vectors(cls, filename, delimiter="\t",
+                                     label_col="label"):
         """
         Loads trained average vectors from a CSV-file and instantiates
         a ClassAverageClassifier instance-
@@ -198,6 +211,7 @@ class ClassAverageClassifier(BaseClassifier):
         :type label_col: str
         :return: ClassAverageClassifier instance.
         """
+        logger.info(f"Loading average feature vectors from {filename}...")
         with open(filename, "r") as file:
             csv_reader = csv.reader(file, delimiter=delimiter)
             headers = next(csv_reader)
