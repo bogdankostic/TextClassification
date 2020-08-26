@@ -116,6 +116,7 @@ class CSVPreprocessor(BasePreprocessor):
        Returns test set.
 
        :return: Test set.
+       :rtype: List[dict]
        """
         return self.test
 

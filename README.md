@@ -8,6 +8,8 @@ It relies on three components which work together:
 - **Classifier:** Uses extracted features to train a classification model
 and do inference on unseen instances
 
+The documentation where the functionality of each of the components is explained can be found [here](https://bogdankostic.github.io/TextClassification/).
+
 ## Installation
 To install this library, execute the following commands in your terminal:
 ```bash
