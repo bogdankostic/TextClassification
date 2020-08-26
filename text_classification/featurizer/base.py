@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+import pickle
 
 
 class BaseFeaturizer(ABC):
@@ -18,3 +19,30 @@ class BaseFeaturizer(ABC):
     @abstractmethod
     def add_feature(self, feature_extraction_function):
         pass
+
+    def save(self, filename):
+        """
+        Saves current featurizer instance in binary format.
+
+        :param filename: Name of the file where the featurizer should be
+            saved.
+        :type filename: str
+        """
+        with open(filename, "wb") as file:
+            pickle.dump(self, file)
+
+    @classmethod
+    def load(cls, filename):
+        """
+        Loads a previously saved featurizer from a binary file.
+
+        :param filename: Name of the binary file that the featurizer
+            should be loaded from.
+        :type filename: str
+
+        :return: Classifier instance.
+        """
+        with open(filename, "rb") as file:
+            featurizer = pickle.load(file)
+
+        return featurizer

@@ -208,6 +208,49 @@ class CSVPreprocessor(BasePreprocessor):
                        instance.get("prediction", "")]
                 csv_writer.writerow(row)
 
+    def write_feature_vectors(self, filename, delimiter="\t", set="train"):
+        """
+        Write extracted features to a csv-file.
+
+        :param filename: File to write the feature vectors to.
+        :type filename: str
+        :param delimiter: Delimiter that is used in csv-file.
+        :type delimiter: str
+        :param set: From which data set to write the feature vectors.
+            Possible values: "train", "test", "dev"
+        :type set: str
+        """
+        logger.info(f"Writing {set} feature vectors to {filename}...")
+        if set == "test":
+            self._write_csv(filename, delimiter, self.get_test_data())
+        elif set == "dev":
+            self._write_csv(filename, delimiter, self.get_dev_data())
+        elif set == "train":
+            self._write_csv(filename, delimiter, self.get_train_data())
+        else:
+            raise ValueError(f"Arg set has to be one of the following values:"
+                             f" 'test', 'train', 'dev'. Arg set is: {set}")
+
+    def _write_feature_vectors(self, filename, delimiter, set):
+        with open(filename, "w") as file:
+            csv_writer = csv.writer(file, delimiter=delimiter)
+            try:
+                feat_names = set[0]["feature_names"]
+                csv_writer.writerow(["text", "label", "prediction"] +
+                                    feat_names)
+            except IndexError:
+                logger.warning("Cannot write feature vectors for empty set.")
+            except KeyError:
+                logger.warning("No feature vectors available. Please extract "
+                               "features before wanting to write feature "
+                               "vectors.")
+            for instance in set:
+                row = [instance.get("text", ""),
+                       instance.get("label", ""),
+                       instance.get("prediction", "")] + \
+                      instance.get("feature_names", [0 for feat in feat_names])
+                csv_writer.writerow(row)
+
     @staticmethod
     def _extract_data(filename, delimiter, text_column, label_column):
         with open(filename, "r") as file:

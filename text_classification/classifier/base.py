@@ -23,7 +23,7 @@ class BaseClassifier(ABC):
 
     def save(self, filename):
         """
-        Saves current classifier instance in binary format
+        Saves current classifier instance in binary format.
 
         :param filename: Name of the file where the classifier should be
             saved.
