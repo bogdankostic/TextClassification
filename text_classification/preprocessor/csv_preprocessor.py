@@ -1,5 +1,6 @@
 import csv
 import random
+import logging
 
 from text_classification.preprocessor.base import BasePreprocessor
 
@@ -196,10 +197,14 @@ class CSVPreprocessor(BasePreprocessor):
 
     @staticmethod
     def _extract_data(filename, delimiter, text_column, label_column):
-        # TODO what happens if empty csv-file? (next might raise an Error)
         with open(filename, "r") as file:
             csv_reader = csv.reader(file, delimiter=delimiter)
-            headers = next(csv_reader)
+            try:
+                headers = next(csv_reader)
+            except StopIteration:
+                raise EOFError(f"'{filename}' is empty. Please provide a "
+                               f"non-empty file or set filename to 'None' if "
+                               f"you want to use an empty CSVPreprocessor.")
             text_col_idx = headers.index(text_column)
             label_col_idx = headers.index(label_column)
             data = [{"text": row[text_col_idx], "label": row[label_col_idx]}

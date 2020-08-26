@@ -31,7 +31,9 @@ class ClassAverageClassifier(BaseClassifier):
         """
         train_set = preprocessor.get_train_data()
         if not train_set:
-            logging.warning("Preprocessor's train set is empty.")
+            logging.warning("Classifier won't be trained as Preprocessor's "
+                            "train set is empty.")
+            return self
 
         # split train set in different classes
         split_by_label = defaultdict(list)
@@ -83,6 +85,11 @@ class ClassAverageClassifier(BaseClassifier):
                 predictions.append(instance["prediction"])
                 gold_labels.append(instance["label"])
 
+            assert len(gold_labels) == len(predictions), \
+                "Label list and prediction list are not of same length."
+            assert len(gold_labels) > 0, \
+                "Evaluation on empty test set is not possible."
+
             print("___Evaluation metrics on test set___")
             print(classification_report(gold_labels, predictions))
 
@@ -92,6 +99,11 @@ class ClassAverageClassifier(BaseClassifier):
             for instance in preprocessor.get_dev_data():
                 predictions.append(instance["prediction"])
                 gold_labels.append(instance["label"])
+
+            assert len(gold_labels) == len(predictions), \
+                "Label list and prediction list are not of same length."
+            assert len(gold_labels) > 0, \
+                "Evaluation on empty test set is not possible."
 
             print("___Evaluation metrics on dev set___")
             print(classification_report(gold_labels, predictions))
