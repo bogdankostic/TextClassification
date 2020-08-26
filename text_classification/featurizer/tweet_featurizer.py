@@ -69,7 +69,7 @@ class TweetFeaturizer(BaseFeaturizer):
 
         :param preprocessor: Preprocessor containing data to featurize.
         :type preprocessor: BasePreprocessor
-        :param exclude: Set of features that shpuld be excluded from
+        :param exclude: Set of features that should be excluded from
             resulting feature vectors.
         :param exclude: Set[str]
         """
@@ -166,7 +166,6 @@ class TweetFeaturizer(BaseFeaturizer):
         return counts
 
     def _pos_features(self, instance, exclude=set()):
-
         if "pos" in exclude:
             return
 
@@ -177,7 +176,6 @@ class TweetFeaturizer(BaseFeaturizer):
         return counts
 
     def _ner_features(self, instance, exclude=set()):
-
         if "ner" in exclude:
             return
 
@@ -218,4 +216,3 @@ class TweetFeaturizer(BaseFeaturizer):
                 is_stop=is_stop,
                 is_emoji=is_emoji,
             )
-

@@ -9,7 +9,7 @@ class BasePreprocessor(ABC):
 
     @classmethod
     @abstractmethod
-    def from_file(self, filename):
+    def from_file(cls, filename):
         pass
 
     @abstractmethod

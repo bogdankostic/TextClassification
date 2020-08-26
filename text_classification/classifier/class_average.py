@@ -163,7 +163,7 @@ class ClassAverageClassifier(BaseClassifier):
 
             else:
                 raise KeyError("Instance to predict doesn't contain feature "
-                              "vector. Make sure to apply first a Featurizer!")
+                               "vector. Make sure to apply first a Featurizer!")
 
         return dicts
 
@@ -226,6 +226,3 @@ class ClassAverageClassifier(BaseClassifier):
         most_similar_label = max(similarity_values, key=similarity_values.get)
 
         return most_similar_label
-
-
-

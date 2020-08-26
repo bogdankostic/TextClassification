@@ -1,6 +1,5 @@
 import csv
 import random
-import logging
 
 from text_classification.preprocessor.base import BasePreprocessor
 
@@ -72,7 +71,7 @@ class CSVPreprocessor(BasePreprocessor):
             # split data into train, test and dev sets
             self.test = data[:number_of_test_samples]
             self.dev = data[number_of_test_samples:
-                           number_of_test_samples+number_of_dev_samples]
+                            number_of_test_samples+number_of_dev_samples]
             self.train = data[number_of_test_samples+number_of_dev_samples:]
 
             # add external test and dev data

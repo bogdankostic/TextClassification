@@ -12,9 +12,9 @@ class BaseFeaturizer(ABC):
                        'PUNCT', 'SCONJ', 'SYM', 'VERB', 'X', 'SPACE']
 
     @abstractmethod
-    def extract_features(self):
+    def extract_features(self, preprocessor, exclude=set()):
         pass
 
     @abstractmethod
-    def add_feature(self):
+    def add_feature(self, feature_extraction_function):
         pass

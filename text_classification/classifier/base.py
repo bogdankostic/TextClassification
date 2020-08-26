@@ -9,15 +9,16 @@ class BaseClassifier(ABC):
     """
 
     @abstractmethod
-    def train(self):
+    def train(self, preprocessor):
         pass
 
     @abstractmethod
-    def predict(self):
+    def predict(self, preprocessor, predict_train=False, predict_test=True,
+                predict_dev=False):
         pass
 
     @abstractmethod
-    def evaluate(self):
+    def evaluate(self, preprocessot, evaluate_test=True, evaluate_dev=False):
         pass
 
     def save(self, filename):
