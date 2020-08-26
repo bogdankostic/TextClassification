@@ -1,0 +1,421 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>text_classification.featurizer.tweet_featurizer &mdash; TextClassification 0.0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> TextClassification
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">Preprocessors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html#module-text_classification.featurizer.base">Featurizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html#module-text_classification.classifier.base">Classifiers</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">TextClassification</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>text_classification.featurizer.tweet_featurizer</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for text_classification.featurizer.tweet_featurizer</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">cpu_count</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+<span class="kn">from</span> <span class="nn">statistics</span> <span class="kn">import</span> <span class="n">mean</span>
+
+<span class="kn">import</span> <span class="nn">spacy</span>
+<span class="kn">from</span> <span class="nn">spacymoji</span> <span class="kn">import</span> <span class="n">Emoji</span>
+
+<span class="kn">from</span> <span class="nn">text_classification.featurizer.base</span> <span class="kn">import</span> <span class="n">BaseFeaturizer</span>
+
+
+<div class="viewcode-block" id="TweetFeaturizer"><a class="viewcode-back" href="../../../api.html#text_classification.featurizer.tweet_featurizer.TweetFeaturizer">[docs]</a><span class="k">class</span> <span class="nc">TweetFeaturizer</span><span class="p">(</span><span class="n">BaseFeaturizer</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Featurizer that extracts features from tweets, i.e. it doesn&#39;t</span>
+<span class="sd">    contain any paragraph-based features as these don&#39;t apply for</span>
+<span class="sd">    tweets.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lang_model</span><span class="o">=</span><span class="s2">&quot;en_core_web_sm&quot;</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Instantiates a TweetFeaturizer instance.</span>
+
+<span class="sd">        :param lang_model: A spaCy language model name.</span>
+<span class="sd">        :type lang_model: str</span>
+<span class="sd">        :param normalize: Whether to normalize the features based on</span>
+<span class="sd">            number of chars/tokens.</span>
+<span class="sd">        :type normalize: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># initialize spacy model</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">spacy_model</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">lang_model</span><span class="p">,</span> <span class="n">disable</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;parser&quot;</span><span class="p">])</span>
+            <span class="n">emoji_detector</span> <span class="o">=</span> <span class="n">Emoji</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">spacy_model</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">spacy_model</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="n">emoji_detector</span><span class="p">,</span> <span class="n">first</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+            <span class="c1"># user inserted an unknown model name</span>
+            <span class="k">raise</span> <span class="ne">ModuleNotFoundError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Language model &#39;</span><span class="si">{</span><span class="n">lang_model</span><span class="si">}</span><span class="s2">&#39; not installed.</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">To install the model, execute: &#39;python -m spacy download &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">lang_model</span><span class="si">}</span><span class="s2">&#39;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">Available models can be found at: &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;https://spacy.io/usage/models&quot;</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">normalize</span> <span class="o">=</span> <span class="n">normalize</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">feature_functions</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_char_based_features</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_word_based_features</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_pos_features</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ner_features</span><span class="p">,</span>
+        <span class="p">]</span>
+
+<div class="viewcode-block" id="TweetFeaturizer.add_feature"><a class="viewcode-back" href="../../../api.html#text_classification.featurizer.tweet_featurizer.TweetFeaturizer.add_feature">[docs]</a>    <span class="k">def</span> <span class="nf">add_feature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature_extraction_function</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds a custom feature extraction function to the predefined</span>
+<span class="sd">        ones. The feature extraction function must take as input a</span>
+<span class="sd">        dictionary containing a key &#39;text&#39; and return a dict with</span>
+<span class="sd">        with &#39;feature_names&#39; and &#39;feature_vector&#39; as keys.</span>
+
+<span class="sd">        :param feature_extraction_function: Custom function that</span>
+<span class="sd">            extracts features from text.</span>
+<span class="sd">        :type feature_extraction_function: function</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">feature_functions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">feature_extraction_function</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TweetFeaturizer.extract_features"><a class="viewcode-back" href="../../../api.html#text_classification.featurizer.tweet_featurizer.TweetFeaturizer.extract_features">[docs]</a>    <span class="k">def</span> <span class="nf">extract_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">preprocessor</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="nb">set</span><span class="p">()):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Extracts the features for all splits in the preprocessor and</span>
+<span class="sd">        adds feature vector and feature name for each instance in-place.</span>
+
+<span class="sd">        :param preprocessor: Preprocessor containing data to featurize.</span>
+<span class="sd">        :type preprocessor: BasePreprocessor</span>
+<span class="sd">        :param exclude: Set of features that shpuld be excluded from</span>
+<span class="sd">            resulting feature vectors.</span>
+<span class="sd">        :param exclude: Set[str]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">data_splits</span> <span class="o">=</span> <span class="n">preprocessor</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">split</span> <span class="ow">in</span> <span class="n">data_splits</span><span class="p">:</span>
+            <span class="c1"># get annotations from spacy</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_add_spacy_annotations</span><span class="p">(</span><span class="n">split</span><span class="p">)</span>
+
+            <span class="c1"># extract features for each instance</span>
+            <span class="k">for</span> <span class="n">instance</span> <span class="ow">in</span> <span class="n">split</span><span class="p">:</span>
+                <span class="n">instance</span><span class="p">[</span><span class="s2">&quot;feature_vector&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">instance</span><span class="p">[</span><span class="s2">&quot;feature_names&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">function</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">feature_functions</span><span class="p">:</span>
+                    <span class="n">count_dict</span> <span class="o">=</span> <span class="n">function</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">exclude</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">count_dict</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">instance</span><span class="p">[</span><span class="s2">&quot;feature_vector&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="nb">list</span><span class="p">(</span><span class="n">count_dict</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+                        <span class="n">instance</span><span class="p">[</span><span class="s2">&quot;feature_names&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="nb">list</span><span class="p">(</span><span class="n">count_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span></div>
+
+    <span class="k">def</span> <span class="nf">_char_based_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="nb">set</span><span class="p">()):</span>
+        <span class="n">counts</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">({</span>
+            <span class="s2">&quot;alpha&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">&quot;upper&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">&quot;lower&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">&quot;numeric&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">&quot;whitespace&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">&quot;comma&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">&quot;dot&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">&quot;exclamation&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">&quot;question&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">&quot;colon&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">&quot;semicolon&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">&quot;hyphen&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">&quot;at&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="p">})</span>
+
+        <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">instance</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">char</span><span class="o">.</span><span class="n">isalpha</span><span class="p">()</span> <span class="ow">and</span> <span class="s2">&quot;alpha&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">exclude</span><span class="p">:</span>
+                <span class="n">counts</span><span class="p">[</span><span class="s2">&quot;alpha&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="n">char</span><span class="o">.</span><span class="n">isupper</span><span class="p">()</span> <span class="ow">and</span> <span class="s2">&quot;upper&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">exclude</span><span class="p">:</span>
+                    <span class="n">counts</span><span class="p">[</span><span class="s2">&quot;upper&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">elif</span> <span class="n">char</span><span class="o">.</span><span class="n">islower</span><span class="p">()</span> <span class="ow">and</span> <span class="s2">&quot;lower&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">exclude</span><span class="p">:</span>
+                    <span class="n">counts</span><span class="p">[</span><span class="s2">&quot;lower&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+            <span class="k">elif</span> <span class="n">char</span><span class="o">.</span><span class="n">isnumeric</span><span class="p">()</span> <span class="ow">and</span> <span class="s2">&quot;numeric&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">exclude</span><span class="p">:</span>
+                <span class="n">counts</span><span class="p">[</span><span class="s2">&quot;numeric&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">char</span><span class="o">.</span><span class="n">isspace</span><span class="p">()</span> <span class="ow">and</span> <span class="s2">&quot;whitespace&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">exclude</span><span class="p">:</span>
+                <span class="n">counts</span><span class="p">[</span><span class="s2">&quot;whitespace&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">char</span> <span class="o">==</span> <span class="s2">&quot;,&quot;</span> <span class="ow">and</span> <span class="s2">&quot;comma&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">exclude</span><span class="p">:</span>
+                <span class="n">counts</span><span class="p">[</span><span class="s2">&quot;comma&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">char</span> <span class="o">==</span> <span class="s2">&quot;.&quot;</span> <span class="ow">and</span> <span class="s2">&quot;dot&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">exclude</span><span class="p">:</span>
+                <span class="n">counts</span><span class="p">[</span><span class="s2">&quot;dot&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">char</span> <span class="o">==</span> <span class="s2">&quot;!&quot;</span> <span class="ow">and</span> <span class="s2">&quot;exclamation&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">exclude</span><span class="p">:</span>
+                <span class="n">counts</span><span class="p">[</span><span class="s2">&quot;exclamation&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">char</span> <span class="o">==</span> <span class="s2">&quot;?&quot;</span> <span class="ow">and</span> <span class="s2">&quot;question&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">exclude</span><span class="p">:</span>
+                <span class="n">counts</span><span class="p">[</span><span class="s2">&quot;question&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">char</span> <span class="o">==</span> <span class="s2">&quot;:&quot;</span> <span class="ow">and</span> <span class="s2">&quot;colon&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">exclude</span><span class="p">:</span>
+                <span class="n">counts</span><span class="p">[</span><span class="s2">&quot;colon&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">char</span> <span class="o">==</span> <span class="s2">&quot;;&quot;</span> <span class="ow">and</span> <span class="s2">&quot;semicolon&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">exclude</span><span class="p">:</span>
+                <span class="n">counts</span><span class="p">[</span><span class="s2">&quot;semicolon&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">char</span> <span class="o">==</span> <span class="s2">&quot;-&quot;</span> <span class="ow">and</span> <span class="s2">&quot;hyphen&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">exclude</span><span class="p">:</span>
+                <span class="n">counts</span><span class="p">[</span><span class="s2">&quot;hyphen&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">char</span> <span class="o">==</span> <span class="s2">&quot;@&quot;</span> <span class="ow">and</span> <span class="s2">&quot;at&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">exclude</span><span class="p">:</span>
+                <span class="n">counts</span><span class="p">[</span><span class="s2">&quot;at&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="c1"># normalize counts</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">normalize</span><span class="p">:</span>
+            <span class="n">number_of_chars</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">instance</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">feature</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">counts</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">counts</span><span class="p">[</span><span class="n">feature</span><span class="p">]</span> <span class="o">=</span> <span class="n">count</span> <span class="o">/</span> <span class="n">number_of_chars</span>
+
+        <span class="k">return</span> <span class="n">counts</span>
+
+    <span class="k">def</span> <span class="nf">_word_based_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="nb">set</span><span class="p">()):</span>
+        <span class="n">counts</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
+
+        <span class="n">counts</span><span class="p">[</span><span class="s2">&quot;stop_words&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">instance</span><span class="p">[</span><span class="s2">&quot;is_stop&quot;</span><span class="p">])</span>
+        <span class="n">counts</span><span class="p">[</span><span class="s2">&quot;emojis&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">instance</span><span class="p">[</span><span class="s2">&quot;is_emoji&quot;</span><span class="p">])</span>
+
+        <span class="n">token_counts</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">instance</span><span class="p">[</span><span class="s2">&quot;tokens&quot;</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">normalize</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">feature</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">counts</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">counts</span><span class="p">[</span><span class="n">feature</span><span class="p">]</span> <span class="o">=</span> <span class="n">counts</span><span class="p">[</span><span class="n">feature</span><span class="p">]</span> <span class="o">/</span> <span class="n">token_counts</span>
+
+        <span class="n">counts</span><span class="p">[</span><span class="s2">&quot;token_counts&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">instance</span><span class="p">[</span><span class="s2">&quot;tokens&quot;</span><span class="p">])</span>
+        <span class="n">counts</span><span class="p">[</span><span class="s2">&quot;avg_token_len&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mean</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+                                       <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">instance</span><span class="p">[</span><span class="s2">&quot;tokens&quot;</span><span class="p">])</span>
+
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">exclude</span><span class="p">:</span>
+            <span class="n">counts</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">counts</span>
+
+    <span class="k">def</span> <span class="nf">_pos_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="nb">set</span><span class="p">()):</span>
+
+        <span class="k">if</span> <span class="s2">&quot;pos&quot;</span> <span class="ow">in</span> <span class="n">exclude</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">counts</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">({</span><span class="n">key</span><span class="p">:</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">BaseFeaturizer</span><span class="o">.</span><span class="n">COARSE_POS_TAGS</span><span class="p">})</span>
+        <span class="k">for</span> <span class="n">pos_tag</span> <span class="ow">in</span> <span class="n">instance</span><span class="p">[</span><span class="s2">&quot;pos_tags&quot;</span><span class="p">]:</span>
+            <span class="n">counts</span><span class="p">[</span><span class="n">pos_tag</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="k">return</span> <span class="n">counts</span>
+
+    <span class="k">def</span> <span class="nf">_ner_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="nb">set</span><span class="p">()):</span>
+
+        <span class="k">if</span> <span class="s2">&quot;ner&quot;</span> <span class="ow">in</span> <span class="n">exclude</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">counts</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">({</span><span class="n">key</span><span class="p">:</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span>
+                          <span class="bp">self</span><span class="o">.</span><span class="n">spacy_model</span><span class="o">.</span><span class="n">pipe_labels</span><span class="p">[</span><span class="s2">&quot;ner&quot;</span><span class="p">]})</span>
+        <span class="k">for</span> <span class="n">named_entity</span> <span class="ow">in</span> <span class="n">instance</span><span class="p">[</span><span class="s2">&quot;named_entities&quot;</span><span class="p">]:</span>
+            <span class="n">counts</span><span class="p">[</span><span class="n">named_entity</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="k">return</span> <span class="n">counts</span>
+
+    <span class="k">def</span> <span class="nf">_add_spacy_annotations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="n">spacy_docs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">spacy_model</span><span class="o">.</span><span class="n">pipe</span><span class="p">([</span><span class="n">sample</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">data</span><span class="p">],</span>
+                                           <span class="n">n_process</span><span class="o">=</span><span class="n">cpu_count</span><span class="p">())</span>
+
+        <span class="k">for</span> <span class="n">spacy_doc</span><span class="p">,</span> <span class="n">sample</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">spacy_docs</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+            <span class="n">tokens</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">lemmas</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">pos_tags</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">is_alpha</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">is_stop</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">is_emoji</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">spacy_doc</span><span class="p">:</span>
+                <span class="n">tokens</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+                <span class="n">lemmas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">lemma_</span><span class="p">)</span>
+                <span class="n">pos_tags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">pos_</span><span class="p">)</span>
+                <span class="n">is_alpha</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">is_alpha</span><span class="p">)</span>
+                <span class="n">is_stop</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">is_stop</span><span class="p">)</span>
+                <span class="n">is_emoji</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">is_emoji</span><span class="p">)</span>
+                <span class="c1"># TODO check if spelling error?? --&gt; spacy_hunspell?</span>
+
+            <span class="n">named_entities</span> <span class="o">=</span> <span class="p">[</span><span class="n">span</span><span class="o">.</span><span class="n">label_</span> <span class="k">for</span> <span class="n">span</span> <span class="ow">in</span> <span class="n">spacy_doc</span><span class="o">.</span><span class="n">ents</span><span class="p">]</span>
+            <span class="n">sample</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+                <span class="n">tokens</span><span class="o">=</span><span class="n">tokens</span><span class="p">,</span>
+                <span class="n">lemmas</span><span class="o">=</span><span class="n">lemmas</span><span class="p">,</span>
+                <span class="n">pos_tags</span><span class="o">=</span><span class="n">pos_tags</span><span class="p">,</span>
+                <span class="n">named_entities</span><span class="o">=</span><span class="n">named_entities</span><span class="p">,</span>
+                <span class="n">is_alpha</span><span class="o">=</span><span class="n">is_alpha</span><span class="p">,</span>
+                <span class="n">is_stop</span><span class="o">=</span><span class="n">is_stop</span><span class="p">,</span>
+                <span class="n">is_emoji</span><span class="o">=</span><span class="n">is_emoji</span><span class="p">,</span>
+            <span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Bogdan Kostić
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

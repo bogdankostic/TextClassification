@@ -1,0 +1,559 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Preprocessors &mdash; TextClassification 0.0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="TextClassification: Documentation" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> TextClassification
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Preprocessors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#module-text_classification.featurizer.base">Featurizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#module-text_classification.classifier.base">Classifiers</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">TextClassification</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Preprocessors</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/api.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-text_classification.preprocessor.base">
+<span id="preprocessors"></span><h1>Preprocessors<a class="headerlink" href="#module-text_classification.preprocessor.base" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="text_classification.preprocessor.base.BasePreprocessor">
+<em class="property">class </em><code class="sig-prename descclassname">text_classification.preprocessor.base.</code><code class="sig-name descname">BasePreprocessor</code><a class="reference internal" href="_modules/text_classification/preprocessor/base.html#BasePreprocessor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.preprocessor.base.BasePreprocessor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<p>Base class that all preprocessor classes should inherit from to
+ensure uniformity.</p>
+<dl class="py method">
+<dt id="text_classification.preprocessor.base.BasePreprocessor.from_file">
+<em class="property">abstract classmethod </em><code class="sig-name descname">from_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/preprocessor/base.html#BasePreprocessor.from_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.preprocessor.base.BasePreprocessor.from_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="text_classification.preprocessor.base.BasePreprocessor.write_csv">
+<em class="property">abstract </em><code class="sig-name descname">write_csv</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em>, <em class="sig-param"><span class="n">delimiter</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/preprocessor/base.html#BasePreprocessor.write_csv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.preprocessor.base.BasePreprocessor.write_csv" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-text_classification.preprocessor.csv_preprocessor"></span><dl class="py class">
+<dt id="text_classification.preprocessor.csv_preprocessor.CSVPreprocessor">
+<em class="property">class </em><code class="sig-prename descclassname">text_classification.preprocessor.csv_preprocessor.</code><code class="sig-name descname">CSVPreprocessor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">train_filename</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">test_filename</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dev_filename</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">test_split</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">dev_split</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">delimiter</span><span class="o">=</span><span class="default_value">'\t'</span></em>, <em class="sig-param"><span class="n">text_column</span><span class="o">=</span><span class="default_value">'text'</span></em>, <em class="sig-param"><span class="n">label_column</span><span class="o">=</span><span class="default_value">'label'</span></em>, <em class="sig-param"><span class="n">random_state</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/preprocessor/csv_preprocessor.html#CSVPreprocessor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.preprocessor.csv_preprocessor.CSVPreprocessor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#text_classification.preprocessor.base.BasePreprocessor" title="text_classification.preprocessor.base.BasePreprocessor"><code class="xref py py-class docutils literal notranslate"><span class="pre">text_classification.preprocessor.base.BasePreprocessor</span></code></a></p>
+<p>Preprocessor that is able to read a csv-file and do train/test/dev
+split. A preprocessor instance serves as a data storage whose
+instances can be extended with feature vectors and predictions.</p>
+<dl class="py method">
+<dt id="text_classification.preprocessor.csv_preprocessor.CSVPreprocessor.from_file">
+<em class="property">classmethod </em><code class="sig-name descname">from_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">train_filename</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">test_filename</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dev_filename</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">test_split</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">dev_split</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">delimiter</span><span class="o">=</span><span class="default_value">'\t'</span></em>, <em class="sig-param"><span class="n">text_column</span><span class="o">=</span><span class="default_value">'text'</span></em>, <em class="sig-param"><span class="n">label_column</span><span class="o">=</span><span class="default_value">'label'</span></em>, <em class="sig-param"><span class="n">random_state</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/preprocessor/csv_preprocessor.html#CSVPreprocessor.from_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.preprocessor.csv_preprocessor.CSVPreprocessor.from_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load data from csv-files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>train_filename</strong> (<em>str</em>) – Train set file.</p></li>
+<li><p><strong>test_filename</strong> (<em>str</em>) – Test set file.</p></li>
+<li><p><strong>dev_filename</strong> (<em>str</em>) – Dev set file.</p></li>
+<li><p><strong>test_split</strong> (<em>float</em>) – Fraction of train set that should be used as
+test set.</p></li>
+<li><p><strong>dev_split</strong> (<em>float</em>) – Fraction of train set that should be used as
+dev set.</p></li>
+<li><p><strong>delimiter</strong> (<em>str</em>) – Delimiter that is used in csv-file.</p></li>
+<li><p><strong>text_column</strong> (<em>str</em>) – Column in csv-file containing text.</p></li>
+<li><p><strong>label_column</strong> (<em>str</em>) – Column in csv-file containing label.</p></li>
+<li><p><strong>random_state</strong> (<em>int</em>) – Random state for shuffling data.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>CSVPreprocessor instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="text_classification.preprocessor.csv_preprocessor.CSVPreprocessor.get_data">
+<code class="sig-name descname">get_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/preprocessor/csv_preprocessor.html#CSVPreprocessor.get_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.preprocessor.csv_preprocessor.CSVPreprocessor.get_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a tuple containing train, test and dev set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Tuple with train, test and dev set.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="text_classification.preprocessor.csv_preprocessor.CSVPreprocessor.get_dev_data">
+<code class="sig-name descname">get_dev_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/preprocessor/csv_preprocessor.html#CSVPreprocessor.get_dev_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.preprocessor.csv_preprocessor.CSVPreprocessor.get_dev_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns dev set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Dev set.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="text_classification.preprocessor.csv_preprocessor.CSVPreprocessor.get_test_data">
+<code class="sig-name descname">get_test_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/preprocessor/csv_preprocessor.html#CSVPreprocessor.get_test_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.preprocessor.csv_preprocessor.CSVPreprocessor.get_test_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns test set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Test set.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>List[dict]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="text_classification.preprocessor.csv_preprocessor.CSVPreprocessor.get_train_data">
+<code class="sig-name descname">get_train_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/preprocessor/csv_preprocessor.html#CSVPreprocessor.get_train_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.preprocessor.csv_preprocessor.CSVPreprocessor.get_train_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns train set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Train set.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="text_classification.preprocessor.csv_preprocessor.CSVPreprocessor.write_csv">
+<code class="sig-name descname">write_csv</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em>, <em class="sig-param"><span class="n">delimiter</span><span class="o">=</span><span class="default_value">'\t'</span></em>, <em class="sig-param"><span class="n">set</span><span class="o">=</span><span class="default_value">'test'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/preprocessor/csv_preprocessor.html#CSVPreprocessor.write_csv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.preprocessor.csv_preprocessor.CSVPreprocessor.write_csv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write data (i.e. text, label, prediction) to a csv-file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<em>str</em>) – File to write the data to.</p></li>
+<li><p><strong>delimiter</strong> (<em>str</em>) – Delimiter that is used in csv-file.</p></li>
+<li><p><strong>set</strong> (<em>str</em>) – Which data set to write.
+Possible values: “train”, “test”, “dev”</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-text_classification.featurizer.base">
+<span id="featurizers"></span><h1>Featurizers<a class="headerlink" href="#module-text_classification.featurizer.base" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="text_classification.featurizer.base.BaseFeaturizer">
+<em class="property">class </em><code class="sig-prename descclassname">text_classification.featurizer.base.</code><code class="sig-name descname">BaseFeaturizer</code><a class="reference internal" href="_modules/text_classification/featurizer/base.html#BaseFeaturizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.featurizer.base.BaseFeaturizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<p>Base class that all featurizer classes should inherit from to ensure
+uniformity.</p>
+<dl class="py attribute">
+<dt id="text_classification.featurizer.base.BaseFeaturizer.COARSE_POS_TAGS">
+<code class="sig-name descname">COARSE_POS_TAGS</code><em class="property"> = ['ADJ', 'ADP', 'ADV', 'AUX', 'CONJ', 'CCONJ', 'DET', 'INTJ', 'NOUN', 'NUM', 'PART', 'PRON', 'PROPN', 'PUNCT', 'SCONJ', 'SYM', 'VERB', 'X', 'SPACE']</em><a class="headerlink" href="#text_classification.featurizer.base.BaseFeaturizer.COARSE_POS_TAGS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="text_classification.featurizer.base.BaseFeaturizer.add_feature">
+<em class="property">abstract </em><code class="sig-name descname">add_feature</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/featurizer/base.html#BaseFeaturizer.add_feature"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.featurizer.base.BaseFeaturizer.add_feature" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="text_classification.featurizer.base.BaseFeaturizer.extract_features">
+<em class="property">abstract </em><code class="sig-name descname">extract_features</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/featurizer/base.html#BaseFeaturizer.extract_features"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.featurizer.base.BaseFeaturizer.extract_features" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-text_classification.featurizer.tweet_featurizer"></span><dl class="py class">
+<dt id="text_classification.featurizer.tweet_featurizer.TweetFeaturizer">
+<em class="property">class </em><code class="sig-prename descclassname">text_classification.featurizer.tweet_featurizer.</code><code class="sig-name descname">TweetFeaturizer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">lang_model</span><span class="o">=</span><span class="default_value">'en_core_web_sm'</span></em>, <em class="sig-param"><span class="n">normalize</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/featurizer/tweet_featurizer.html#TweetFeaturizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.featurizer.tweet_featurizer.TweetFeaturizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#text_classification.featurizer.base.BaseFeaturizer" title="text_classification.featurizer.base.BaseFeaturizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">text_classification.featurizer.base.BaseFeaturizer</span></code></a></p>
+<p>Featurizer that extracts features from tweets, i.e. it doesn’t
+contain any paragraph-based features as these don’t apply for
+tweets.</p>
+<dl class="py method">
+<dt id="text_classification.featurizer.tweet_featurizer.TweetFeaturizer.add_feature">
+<code class="sig-name descname">add_feature</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">feature_extraction_function</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/featurizer/tweet_featurizer.html#TweetFeaturizer.add_feature"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.featurizer.tweet_featurizer.TweetFeaturizer.add_feature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a custom feature extraction function to the predefined
+ones. The feature extraction function must take as input a
+dictionary containing a key ‘text’ and return a dict with
+with ‘feature_names’ and ‘feature_vector’ as keys.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>feature_extraction_function</strong> (<em>function</em>) – Custom function that
+extracts features from text.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="text_classification.featurizer.tweet_featurizer.TweetFeaturizer.extract_features">
+<code class="sig-name descname">extract_features</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">preprocessor</span></em>, <em class="sig-param"><span class="n">exclude</span><span class="o">=</span><span class="default_value">{}</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/featurizer/tweet_featurizer.html#TweetFeaturizer.extract_features"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.featurizer.tweet_featurizer.TweetFeaturizer.extract_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts the features for all splits in the preprocessor and
+adds feature vector and feature name for each instance in-place.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>preprocessor</strong> (<a class="reference internal" href="#text_classification.preprocessor.base.BasePreprocessor" title="text_classification.preprocessor.base.BasePreprocessor"><em>BasePreprocessor</em></a>) – Preprocessor containing data to featurize.</p></li>
+<li><p><strong>exclude</strong> – Set of features that shpuld be excluded from
+resulting feature vectors.</p></li>
+<li><p><strong>exclude</strong> – Set[str]</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-text_classification.classifier.base">
+<span id="classifiers"></span><h1>Classifiers<a class="headerlink" href="#module-text_classification.classifier.base" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="text_classification.classifier.base.BaseClassifier">
+<em class="property">class </em><code class="sig-prename descclassname">text_classification.classifier.base.</code><code class="sig-name descname">BaseClassifier</code><a class="reference internal" href="_modules/text_classification/classifier/base.html#BaseClassifier"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.classifier.base.BaseClassifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<p>Base class that all classifier classes should inherit from to ensure
+uniformity.</p>
+<dl class="py method">
+<dt id="text_classification.classifier.base.BaseClassifier.evaluate">
+<em class="property">abstract </em><code class="sig-name descname">evaluate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/classifier/base.html#BaseClassifier.evaluate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.classifier.base.BaseClassifier.evaluate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="text_classification.classifier.base.BaseClassifier.load">
+<em class="property">classmethod </em><code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/classifier/base.html#BaseClassifier.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.classifier.base.BaseClassifier.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads a previously saved classifier from a binary file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>str</em>) – Name of the binary file that the classifier
+should be loaded from.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Classifier instance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="text_classification.classifier.base.BaseClassifier.predict">
+<em class="property">abstract </em><code class="sig-name descname">predict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/classifier/base.html#BaseClassifier.predict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.classifier.base.BaseClassifier.predict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="text_classification.classifier.base.BaseClassifier.save">
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/classifier/base.html#BaseClassifier.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.classifier.base.BaseClassifier.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves current classifier instance in binary format</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>str</em>) – Name of the file where the classifier should be
+saved.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="text_classification.classifier.base.BaseClassifier.train">
+<em class="property">abstract </em><code class="sig-name descname">train</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/classifier/base.html#BaseClassifier.train"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.classifier.base.BaseClassifier.train" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-text_classification.classifier.class_average"></span><dl class="py class">
+<dt id="text_classification.classifier.class_average.ClassAverageClassifier">
+<em class="property">class </em><code class="sig-prename descclassname">text_classification.classifier.class_average.</code><code class="sig-name descname">ClassAverageClassifier</code><a class="reference internal" href="_modules/text_classification/classifier/class_average.html#ClassAverageClassifier"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.classifier.class_average.ClassAverageClassifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#text_classification.classifier.base.BaseClassifier" title="text_classification.classifier.base.BaseClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">text_classification.classifier.base.BaseClassifier</span></code></a></p>
+<p>A classifier that computes average feature values for each class and
+predicts the class whose average feature vector is most similar to
+the instance to predict tha class for.</p>
+<dl class="py method">
+<dt id="text_classification.classifier.class_average.ClassAverageClassifier.evaluate">
+<code class="sig-name descname">evaluate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">preprocessor</span></em>, <em class="sig-param"><span class="n">evaluate_test</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">evaluate_dev</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/classifier/class_average.html#ClassAverageClassifier.evaluate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.classifier.class_average.ClassAverageClassifier.evaluate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluates the current model on the preprocessor’s test and/or
+dev set and prints a classification report containing accuracy,
+precision, recall and F1-scores.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>preprocessor</strong> (<a class="reference internal" href="#text_classification.preprocessor.base.BasePreprocessor" title="text_classification.preprocessor.base.BasePreprocessor"><em>BasePreprocessor</em></a>) – Preprocessor containing dev/test data.</p></li>
+<li><p><strong>evaluate_test</strong> (<em>bool</em>) – Whether to evaluate on the test set.</p></li>
+<li><p><strong>evaluate_dev</strong> (<em>bool</em>) – Whether to evaluate on dev set.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="text_classification.classifier.class_average.ClassAverageClassifier.load_average_feature_values">
+<em class="property">classmethod </em><code class="sig-name descname">load_average_feature_values</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em>, <em class="sig-param"><span class="n">delimiter</span><span class="o">=</span><span class="default_value">'\t'</span></em>, <em class="sig-param"><span class="n">label_col</span><span class="o">=</span><span class="default_value">'label'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/classifier/class_average.html#ClassAverageClassifier.load_average_feature_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.classifier.class_average.ClassAverageClassifier.load_average_feature_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads trained average vectors from a CSV-file and instantiates
+a ClassAverageClassifier instance-</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<em>str</em>) – File where average vectors are saved</p></li>
+<li><p><strong>delimiter</strong> (<em>str</em>) – Delimiter used in CSV-file.</p></li>
+<li><p><strong>label_col</strong> (<em>str</em>) – Name of label column.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>ClassAverageClassifier instance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="text_classification.classifier.class_average.ClassAverageClassifier.predict">
+<code class="sig-name descname">predict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">preprocessor</span></em>, <em class="sig-param"><span class="n">predict_train</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">predict_test</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">predict_dev</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/classifier/class_average.html#ClassAverageClassifier.predict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.classifier.class_average.ClassAverageClassifier.predict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes predictions for data inside preprocessor in-place, i.e.
+for each instance, a key ‘prediction’ containing the prediction
+is added. Instances have to be featurized before using the same
+Featurizer that was used for training instances.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>preprocessor</strong> (<a class="reference internal" href="#text_classification.preprocessor.base.BasePreprocessor" title="text_classification.preprocessor.base.BasePreprocessor"><em>BasePreprocessor</em></a>) – Preprocessor containing the data to make
+predictions on.</p></li>
+<li><p><strong>predict_train</strong> (<em>bool</em>) – Whether to make predictions on the
+train set.</p></li>
+<li><p><strong>predict_test</strong> (<em>bool</em>) – Whether to make predictions on the test set.</p></li>
+<li><p><strong>predict_dev</strong> (<em>bool</em>) – Whether to make predictions on the dev set.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="text_classification.classifier.class_average.ClassAverageClassifier.predict_from_dicts">
+<code class="sig-name descname">predict_from_dicts</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dicts</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/classifier/class_average.html#ClassAverageClassifier.predict_from_dicts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.classifier.class_average.ClassAverageClassifier.predict_from_dicts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make predictions on a a list of dictionaries. Dictionaries must
+contain key ‘feature_vector’ consisting of the feature vector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dicts</strong> (<em>List</em><em>[</em><em>dict</em><em>]</em>) – List of dicts, where each dict represents an
+instance,</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Updated list of dictionaries.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="text_classification.classifier.class_average.ClassAverageClassifier.save_average_feature_values">
+<code class="sig-name descname">save_average_feature_values</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em>, <em class="sig-param"><span class="n">delimiter</span><span class="o">=</span><span class="default_value">'\t'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/classifier/class_average.html#ClassAverageClassifier.save_average_feature_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.classifier.class_average.ClassAverageClassifier.save_average_feature_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves the trained average vectors to a CSV-file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<em>str</em>) – File where average vectors should be saved.</p></li>
+<li><p><strong>delimiter</strong> (<em>str</em>) – Delimiter used in CSV-file.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="text_classification.classifier.class_average.ClassAverageClassifier.train">
+<code class="sig-name descname">train</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">preprocessor</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/classifier/class_average.html#ClassAverageClassifier.train"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.classifier.class_average.ClassAverageClassifier.train" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the average feature vector for each class in the pre-
+processor’s train set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>preprocessor</strong> (<a class="reference internal" href="#text_classification.preprocessor.base.BasePreprocessor" title="text_classification.preprocessor.base.BasePreprocessor"><em>BasePreprocessor</em></a>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>ClassAverageClassifier</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="TextClassification: Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Bogdan Kostić
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

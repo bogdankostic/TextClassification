@@ -1,0 +1,38 @@
+Preprocessors
+-------------
+
+.. automodule:: text_classification.preprocessor.base
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: text_classification.preprocessor.csv_preprocessor
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Featurizers
+-------------
+
+.. automodule:: text_classification.featurizer.base
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: text_classification.featurizer.tweet_featurizer
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Classifiers
+-------------
+
+.. automodule:: text_classification.classifier.base
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: text_classification.classifier.class_average
+   :members:
+   :undoc-members:
+   :show-inheritance:
