@@ -62,7 +62,8 @@ class ClassAverageClassifier(BaseClassifier):
         logger.info("Training done.")
 
         # evaluate on dev set
-        self.evaluate(preprocessor, evaluate_test=False, evaluate_dev=True)
+        if preprocessor.get_dev_data():
+            self.evaluate(preprocessor, evaluate_test=False, evaluate_dev=True)
 
         return self
 
@@ -72,7 +73,7 @@ class ClassAverageClassifier(BaseClassifier):
         dev set and prints a classification report containing accuracy,
         precision, recall and F1-scores.
 
-        :param preprocessor: Preprocessor containing dev/test data.
+        :param preprocessor: Preprocessor containing dev/test samples.
         :type preprocessor: BasePreprocessor
         :param evaluate_test: Whether to evaluate on the test set.
         :type evaluate_test: bool
@@ -117,12 +118,12 @@ class ClassAverageClassifier(BaseClassifier):
     def predict(self, preprocessor, predict_train=False, predict_test=True,
                 predict_dev=False):
         """
-        Makes predictions for data inside preprocessor in-place, i.e.
+        Makes predictions for samples inside preprocessor in-place, i.e.
         for each instance, a key 'prediction' containing the prediction
         is added. Instances have to be featurized before using the same
         Featurizer that was used for training instances.
 
-        :param preprocessor: Preprocessor containing the data to make
+        :param preprocessor: Preprocessor containing the samples to make
             predictions on.
         :type preprocessor: BasePreprocessor
         :param predict_train: Whether to make predictions on the
@@ -227,6 +228,10 @@ class ClassAverageClassifier(BaseClassifier):
         return classifier
 
     def _get_most_similar_label(self, instance):
+        # Computes similarity value of instance with average feature vector for
+        # each class. The smaller similarity value, the more similar are
+        # instance and average feature vector.
+
         similarity_values = defaultdict(float)
         instance_vector = instance["feature_vector"]
 
@@ -237,6 +242,6 @@ class ClassAverageClassifier(BaseClassifier):
                               in zip(instance_vector, average_vector)])
             similarity_values[label] = similarity
 
-        most_similar_label = max(similarity_values, key=similarity_values.get)
+        most_similar_label = min(similarity_values, key=similarity_values.get)
 
         return most_similar_label
