@@ -71,7 +71,7 @@ class TweetFeaturizer(BaseFeaturizer):
         Extracts the features for all splits in the preprocessor and
         adds feature vector and feature name for each instance in-place.
 
-        :param preprocessor: Preprocessor containing data to featurize.
+        :param preprocessor: Preprocessor containing samples to featurize.
         :type preprocessor: BasePreprocessor
         :param exclude: Set of features that should be excluded from
             resulting feature vectors.
@@ -181,6 +181,11 @@ class TweetFeaturizer(BaseFeaturizer):
         for pos_tag in instance["pos_tags"]:
             counts[pos_tag] += 1
 
+        if self.normalize:
+            token_counts = len(instance["tokens"])
+            for feature, count in counts.items():
+                counts[feature] = counts[feature] / token_counts
+
         return counts
 
     def _ner_features(self, instance, exclude=set()):
@@ -191,6 +196,11 @@ class TweetFeaturizer(BaseFeaturizer):
                           self.spacy_model.pipe_labels["ner"]})
         for named_entity in instance["named_entities"]:
             counts[named_entity] += 1
+
+        if self.normalize:
+            token_counts = len(instance["tokens"])
+            for feature, count in counts.items():
+                counts[feature] = counts[feature] / token_counts
 
         return counts
 

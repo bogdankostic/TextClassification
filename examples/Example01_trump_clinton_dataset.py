@@ -1,14 +1,14 @@
 # This example script loads the 'Hillary Clinton and Donald Trump Tweets'
 # dataset and trains and evaluates a classifier on it.
 # To be able to use this script, you need to download the dataset
-# manually and put it in the data folder.
+# manually and put it in the samples folder.
 # Data source: https://www.kaggle.com/benhamner/clinton-trump-tweets
 
 from text_classification.preprocessor.csv_preprocessor import CSVPreprocessor
 from text_classification.featurizer.tweet_featurizer import TweetFeaturizer
 from text_classification.classifier.class_average import ClassAverageClassifier
 
-# 1) Read in the data. We are taking 10 % as development set and
+# 1) Read in the samples. We are taking 10 % as development set and
 #    20 % as test set.
 preprocessor = CSVPreprocessor(
     train_filename="data/tweets.csv",
@@ -31,4 +31,4 @@ classifier.train(preprocessor)
 classifier.evaluate(preprocessor)
 
 # 5) Write predictions on the test set to csv.
-preprocessor.write_csv("data/preds.tsv", set="test")
+preprocessor.write_csv("samples/preds.tsv", set="test")

@@ -1,0 +1,5 @@
+text	label
+notalotof tokens manychars nopunctuation	0
+againno punctutation andnot manytokens	0
+... ? ! many many tokens !! ? ;; ; : - @:	1
+?? ? ! ... ... - @@ 0 1 2 444 5	1

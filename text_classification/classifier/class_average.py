@@ -180,7 +180,8 @@ class ClassAverageClassifier(BaseClassifier):
 
         return dicts
 
-    def save_average_feature_vectors(self, filename, delimiter="\t"):
+    def save_average_feature_vectors(self, filename, delimiter="\t",
+                                     label_col="label"):
         """
         Saves the trained average vectors to a CSV-file.
 
@@ -188,11 +189,13 @@ class ClassAverageClassifier(BaseClassifier):
         :type filename: str
         :param delimiter: Delimiter used in CSV-file.
         :type delimiter: str
+        :param label_col: Name of label column.
+        :type label_col: str
         """
         logger.info(f"Saving average feature vectors to {filename}...")
         with open(filename, "w") as file:
             csv_writer = csv.writer(file, delimiter=delimiter)
-            csv_writer.writerow(["label"] + self.feature_names)
+            csv_writer.writerow([label_col] + self.feature_names)
             for label in self._average_feature_values:
                 csv_writer.writerow([label] +
                                     self._average_feature_values[label])
@@ -213,17 +216,23 @@ class ClassAverageClassifier(BaseClassifier):
         :return: ClassAverageClassifier instance.
         """
         logger.info(f"Loading average feature vectors from {filename}...")
+
+        classifier = cls()
+
         with open(filename, "r") as file:
             csv_reader = csv.reader(file, delimiter=delimiter)
             headers = next(csv_reader)
             label_col_idx = headers.index(label_col)
             headers.pop(label_col_idx)
-            classifier = cls()
             classifier.feature_names = headers
+
             for row in csv_reader:
                 label = row[label_col_idx]
+                if label not in classifier.labels:
+                    classifier.labels.append(label)
                 row.pop(label_col_idx)
-                classifier._average_feature_values[label] = row
+                classifier._average_feature_values[label] = [float(val)
+                                                             for val in row]
 
         return classifier
 

@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 class CSVPreprocessor(BasePreprocessor):
     """
     Preprocessor that is able to read a csv-file and do train/test/dev
-    split. A preprocessor instance serves as a data storage whose
+    split. A preprocessor instance serves as a samples storage whose
     instances can be extended with feature vectors and predictions.
     """
 
@@ -37,7 +37,7 @@ class CSVPreprocessor(BasePreprocessor):
         :type text_column: str
         :param label_column: Column in csv-file containing label.
         :type label_column: str
-        :param random_state: Random state for shuffling data.
+        :param random_state: Random state for shuffling samples.
         :type random_state: int
         """
 
@@ -48,7 +48,7 @@ class CSVPreprocessor(BasePreprocessor):
 
             data = self._extract_data(train_filename, delimiter, text_column,
                                       label_column)
-            # shuffle data if we want to use part of it as train or dev set
+            # shuffle samples if we want to use part of it as train or dev set
             if test_split or dev_split:
                 random.shuffle(data)
 
@@ -73,13 +73,13 @@ class CSVPreprocessor(BasePreprocessor):
             number_of_test_samples = int(len(data) * test_split)
             number_of_dev_samples = int(len(data) * dev_split)
 
-            # split data into train, test and dev sets
+            # split samples into train, test and dev sets
             self.test = data[:number_of_test_samples]
             self.dev = data[number_of_test_samples:
                             number_of_test_samples+number_of_dev_samples]
             self.train = data[number_of_test_samples+number_of_dev_samples:]
 
-            # add external test and dev data
+            # add external test and dev samples
             if test_filename:
                 logging.info(f"Reading {test_filename}...")
 
@@ -146,7 +146,7 @@ class CSVPreprocessor(BasePreprocessor):
                   dev_filename=None, test_split=0, dev_split=0, delimiter="\t",
                   text_column="text", label_column="label", random_state=None):
         """
-        Load data from csv-files.
+        Load samples from csv-files.
 
         :param train_filename: Train set file.
         :type train_filename: str
@@ -166,7 +166,7 @@ class CSVPreprocessor(BasePreprocessor):
         :type text_column: str
         :param label_column: Column in csv-file containing label.
         :type label_column: str
-        :param random_state: Random state for shuffling data.
+        :param random_state: Random state for shuffling samples.
         :type random_state: int
         :return: CSVPreprocessor instance
         """
@@ -177,17 +177,17 @@ class CSVPreprocessor(BasePreprocessor):
 
     def write_csv(self, filename, delimiter="\t", set="test"):
         """
-        Write data (i.e. text, label, prediction) to a csv-file.
+        Write samples (i.e. text, label, prediction) to a csv-file.
 
-        :param filename: File to write the data to.
+        :param filename: File to write the samples to.
         :type filename: str
         :param delimiter: Delimiter that is used in csv-file.
         :type delimiter: str
-        :param set: Which data set to write.
+        :param set: Which samples set to write.
             Possible values: "train", "test", "dev"
         :type set: str
         """
-        logger.info(f"Writing {set} data to {filename}...")
+        logger.info(f"Writing {set} samples to {filename}...")
         if set == "test":
             self._write_csv(filename, delimiter, self.get_test_data())
         elif set == "dev":
@@ -216,7 +216,7 @@ class CSVPreprocessor(BasePreprocessor):
         :type filename: str
         :param delimiter: Delimiter that is used in csv-file.
         :type delimiter: str
-        :param set: From which data set to write the feature vectors.
+        :param set: From which samples set to write the feature vectors.
             Possible values: "train", "test", "dev"
         :type set: str
         """
@@ -261,9 +261,19 @@ class CSVPreprocessor(BasePreprocessor):
                 raise EOFError(f"'{filename}' is empty. Please provide a "
                                f"non-empty file or set filename to 'None' if "
                                f"you want to use an empty CSVPreprocessor.")
-            text_col_idx = headers.index(text_column)
-            label_col_idx = headers.index(label_column)
-            data = [{"text": row[text_col_idx], "label": row[label_col_idx]}
-                    for row in csv_reader]
+            try:
+                text_col_idx = headers.index(text_column)
+            except ValueError:
+                raise ValueError(f"'{text_column}' not a column of "
+                                 f"{filename}. Please provide text column"
+                                 f"name.")
+            try:
+                label_col_idx = headers.index(label_column)
+                data = [{"text": row[text_col_idx], "label": row[label_col_idx]}
+                        for row in csv_reader]
+            except ValueError:
+                logger.warning(f"Reading data from {filename} without label, "
+                               f"as column {label_column} does not exist.")
+                data = [{"text": row[text_col_idx]} for row in csv_reader]
 
         return data

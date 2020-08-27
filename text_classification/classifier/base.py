@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
-import pickle
+
+import dill
 
 
 class BaseClassifier(ABC):
@@ -30,7 +31,7 @@ class BaseClassifier(ABC):
         :type filename: str
         """
         with open(filename, "wb") as file:
-            pickle.dump(self, file)
+            dill.dump(self, file)
 
     @classmethod
     def load(cls, filename):
@@ -44,6 +45,6 @@ class BaseClassifier(ABC):
         :return: Classifier instance.
         """
         with open(filename, "rb") as file:
-            classifier = pickle.load(file)
+            classifier = dill.load(file)
 
         return classifier
