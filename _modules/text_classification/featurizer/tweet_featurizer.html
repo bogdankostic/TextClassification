@@ -222,7 +222,7 @@
 <span class="sd">        Extracts the features for all splits in the preprocessor and</span>
 <span class="sd">        adds feature vector and feature name for each instance in-place.</span>
 
-<span class="sd">        :param preprocessor: Preprocessor containing data to featurize.</span>
+<span class="sd">        :param preprocessor: Preprocessor containing samples to featurize.</span>
 <span class="sd">        :type preprocessor: BasePreprocessor</span>
 <span class="sd">        :param exclude: Set of features that should be excluded from</span>
 <span class="sd">            resulting feature vectors.</span>
@@ -332,6 +332,11 @@
         <span class="k">for</span> <span class="n">pos_tag</span> <span class="ow">in</span> <span class="n">instance</span><span class="p">[</span><span class="s2">&quot;pos_tags&quot;</span><span class="p">]:</span>
             <span class="n">counts</span><span class="p">[</span><span class="n">pos_tag</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
 
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">normalize</span><span class="p">:</span>
+            <span class="n">token_counts</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">instance</span><span class="p">[</span><span class="s2">&quot;tokens&quot;</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">feature</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">counts</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">counts</span><span class="p">[</span><span class="n">feature</span><span class="p">]</span> <span class="o">=</span> <span class="n">counts</span><span class="p">[</span><span class="n">feature</span><span class="p">]</span> <span class="o">/</span> <span class="n">token_counts</span>
+
         <span class="k">return</span> <span class="n">counts</span>
 
     <span class="k">def</span> <span class="nf">_ner_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="nb">set</span><span class="p">()):</span>
@@ -342,6 +347,11 @@
                           <span class="bp">self</span><span class="o">.</span><span class="n">spacy_model</span><span class="o">.</span><span class="n">pipe_labels</span><span class="p">[</span><span class="s2">&quot;ner&quot;</span><span class="p">]})</span>
         <span class="k">for</span> <span class="n">named_entity</span> <span class="ow">in</span> <span class="n">instance</span><span class="p">[</span><span class="s2">&quot;named_entities&quot;</span><span class="p">]:</span>
             <span class="n">counts</span><span class="p">[</span><span class="n">named_entity</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">normalize</span><span class="p">:</span>
+            <span class="n">token_counts</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">instance</span><span class="p">[</span><span class="s2">&quot;tokens&quot;</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">feature</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">counts</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">counts</span><span class="p">[</span><span class="n">feature</span><span class="p">]</span> <span class="o">=</span> <span class="n">counts</span><span class="p">[</span><span class="n">feature</span><span class="p">]</span> <span class="o">/</span> <span class="n">token_counts</span>
 
         <span class="k">return</span> <span class="n">counts</span>
 

@@ -219,7 +219,7 @@ precision, recall and F1-scores.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>preprocessor</strong> (<a class="reference internal" href="api_preprocessors.html#text_classification.preprocessor.base.BasePreprocessor" title="text_classification.preprocessor.base.BasePreprocessor"><em>BasePreprocessor</em></a>) – Preprocessor containing dev/test data.</p></li>
+<li><p><strong>preprocessor</strong> (<a class="reference internal" href="api_preprocessors.html#text_classification.preprocessor.base.BasePreprocessor" title="text_classification.preprocessor.base.BasePreprocessor"><em>BasePreprocessor</em></a>) – Preprocessor containing dev/test samples.</p></li>
 <li><p><strong>evaluate_test</strong> (<em>bool</em>) – Whether to evaluate on the test set.</p></li>
 <li><p><strong>evaluate_dev</strong> (<em>bool</em>) – Whether to evaluate on dev set.</p></li>
 </ul>
@@ -249,14 +249,14 @@ a ClassAverageClassifier instance-</p>
 <dl class="py method">
 <dt id="text_classification.classifier.class_average.ClassAverageClassifier.predict">
 <code class="sig-name descname">predict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">preprocessor</span></em>, <em class="sig-param"><span class="n">predict_train</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">predict_test</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">predict_dev</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/classifier/class_average.html#ClassAverageClassifier.predict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.classifier.class_average.ClassAverageClassifier.predict" title="Permalink to this definition">¶</a></dt>
-<dd><p>Makes predictions for data inside preprocessor in-place, i.e.
+<dd><p>Makes predictions for samples inside preprocessor in-place, i.e.
 for each instance, a key ‘prediction’ containing the prediction
 is added. Instances have to be featurized before using the same
 Featurizer that was used for training instances.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>preprocessor</strong> (<a class="reference internal" href="api_preprocessors.html#text_classification.preprocessor.base.BasePreprocessor" title="text_classification.preprocessor.base.BasePreprocessor"><em>BasePreprocessor</em></a>) – Preprocessor containing the data to make
+<li><p><strong>preprocessor</strong> (<a class="reference internal" href="api_preprocessors.html#text_classification.preprocessor.base.BasePreprocessor" title="text_classification.preprocessor.base.BasePreprocessor"><em>BasePreprocessor</em></a>) – Preprocessor containing the samples to make
 predictions on.</p></li>
 <li><p><strong>predict_train</strong> (<em>bool</em>) – Whether to make predictions on the
 train set.</p></li>
@@ -285,13 +285,14 @@ instance,</p>
 
 <dl class="py method">
 <dt id="text_classification.classifier.class_average.ClassAverageClassifier.save_average_feature_vectors">
-<code class="sig-name descname">save_average_feature_vectors</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em>, <em class="sig-param"><span class="n">delimiter</span><span class="o">=</span><span class="default_value">'\t'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/classifier/class_average.html#ClassAverageClassifier.save_average_feature_vectors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.classifier.class_average.ClassAverageClassifier.save_average_feature_vectors" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">save_average_feature_vectors</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em>, <em class="sig-param"><span class="n">delimiter</span><span class="o">=</span><span class="default_value">'\t'</span></em>, <em class="sig-param"><span class="n">label_col</span><span class="o">=</span><span class="default_value">'label'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/classifier/class_average.html#ClassAverageClassifier.save_average_feature_vectors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.classifier.class_average.ClassAverageClassifier.save_average_feature_vectors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Saves the trained average vectors to a CSV-file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>filename</strong> (<em>str</em>) – File where average vectors should be saved.</p></li>
 <li><p><strong>delimiter</strong> (<em>str</em>) – Delimiter used in CSV-file.</p></li>
+<li><p><strong>label_col</strong> (<em>str</em>) – Name of label column.</p></li>
 </ul>
 </dd>
 </dl>

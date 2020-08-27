@@ -161,7 +161,7 @@
 <div class="viewcode-block" id="CSVPreprocessor"><a class="viewcode-back" href="../../../api_preprocessors.html#text_classification.preprocessor.csv_preprocessor.CSVPreprocessor">[docs]</a><span class="k">class</span> <span class="nc">CSVPreprocessor</span><span class="p">(</span><span class="n">BasePreprocessor</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Preprocessor that is able to read a csv-file and do train/test/dev</span>
-<span class="sd">    split. A preprocessor instance serves as a data storage whose</span>
+<span class="sd">    split. A preprocessor instance serves as a samples storage whose</span>
 <span class="sd">    instances can be extended with feature vectors and predictions.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -188,7 +188,7 @@
 <span class="sd">        :type text_column: str</span>
 <span class="sd">        :param label_column: Column in csv-file containing label.</span>
 <span class="sd">        :type label_column: str</span>
-<span class="sd">        :param random_state: Random state for shuffling data.</span>
+<span class="sd">        :param random_state: Random state for shuffling samples.</span>
 <span class="sd">        :type random_state: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
@@ -199,7 +199,7 @@
 
             <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_data</span><span class="p">(</span><span class="n">train_filename</span><span class="p">,</span> <span class="n">delimiter</span><span class="p">,</span> <span class="n">text_column</span><span class="p">,</span>
                                       <span class="n">label_column</span><span class="p">)</span>
-            <span class="c1"># shuffle data if we want to use part of it as train or dev set</span>
+            <span class="c1"># shuffle samples if we want to use part of it as train or dev set</span>
             <span class="k">if</span> <span class="n">test_split</span> <span class="ow">or</span> <span class="n">dev_split</span><span class="p">:</span>
                 <span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
@@ -224,13 +224,13 @@
             <span class="n">number_of_test_samples</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">*</span> <span class="n">test_split</span><span class="p">)</span>
             <span class="n">number_of_dev_samples</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">*</span> <span class="n">dev_split</span><span class="p">)</span>
 
-            <span class="c1"># split data into train, test and dev sets</span>
+            <span class="c1"># split samples into train, test and dev sets</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">test</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:</span><span class="n">number_of_test_samples</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">dev</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">number_of_test_samples</span><span class="p">:</span>
                             <span class="n">number_of_test_samples</span><span class="o">+</span><span class="n">number_of_dev_samples</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">train</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">number_of_test_samples</span><span class="o">+</span><span class="n">number_of_dev_samples</span><span class="p">:]</span>
 
-            <span class="c1"># add external test and dev data</span>
+            <span class="c1"># add external test and dev samples</span>
             <span class="k">if</span> <span class="n">test_filename</span><span class="p">:</span>
                 <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Reading </span><span class="si">{</span><span class="n">test_filename</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
 
@@ -297,7 +297,7 @@
                   <span class="n">dev_filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">test_split</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dev_split</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span>
                   <span class="n">text_column</span><span class="o">=</span><span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="n">label_column</span><span class="o">=</span><span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Load data from csv-files.</span>
+<span class="sd">        Load samples from csv-files.</span>
 
 <span class="sd">        :param train_filename: Train set file.</span>
 <span class="sd">        :type train_filename: str</span>
@@ -317,7 +317,7 @@
 <span class="sd">        :type text_column: str</span>
 <span class="sd">        :param label_column: Column in csv-file containing label.</span>
 <span class="sd">        :type label_column: str</span>
-<span class="sd">        :param random_state: Random state for shuffling data.</span>
+<span class="sd">        :param random_state: Random state for shuffling samples.</span>
 <span class="sd">        :type random_state: int</span>
 <span class="sd">        :return: CSVPreprocessor instance</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -328,17 +328,17 @@
 
 <div class="viewcode-block" id="CSVPreprocessor.write_csv"><a class="viewcode-back" href="../../../api_preprocessors.html#text_classification.preprocessor.csv_preprocessor.CSVPreprocessor.write_csv">[docs]</a>    <span class="k">def</span> <span class="nf">write_csv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="nb">set</span><span class="o">=</span><span class="s2">&quot;test&quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Write data (i.e. text, label, prediction) to a csv-file.</span>
+<span class="sd">        Write samples (i.e. text, label, prediction) to a csv-file.</span>
 
-<span class="sd">        :param filename: File to write the data to.</span>
+<span class="sd">        :param filename: File to write the samples to.</span>
 <span class="sd">        :type filename: str</span>
 <span class="sd">        :param delimiter: Delimiter that is used in csv-file.</span>
 <span class="sd">        :type delimiter: str</span>
-<span class="sd">        :param set: Which data set to write.</span>
+<span class="sd">        :param set: Which samples set to write.</span>
 <span class="sd">            Possible values: &quot;train&quot;, &quot;test&quot;, &quot;dev&quot;</span>
 <span class="sd">        :type set: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Writing </span><span class="si">{</span><span class="nb">set</span><span class="si">}</span><span class="s2"> data to </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Writing </span><span class="si">{</span><span class="nb">set</span><span class="si">}</span><span class="s2"> samples to </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">set</span> <span class="o">==</span> <span class="s2">&quot;test&quot;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_write_csv</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">delimiter</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_test_data</span><span class="p">())</span>
         <span class="k">elif</span> <span class="nb">set</span> <span class="o">==</span> <span class="s2">&quot;dev&quot;</span><span class="p">:</span>
@@ -367,7 +367,7 @@
 <span class="sd">        :type filename: str</span>
 <span class="sd">        :param delimiter: Delimiter that is used in csv-file.</span>
 <span class="sd">        :type delimiter: str</span>
-<span class="sd">        :param set: From which data set to write the feature vectors.</span>
+<span class="sd">        :param set: From which samples set to write the feature vectors.</span>
 <span class="sd">            Possible values: &quot;train&quot;, &quot;test&quot;, &quot;dev&quot;</span>
 <span class="sd">        :type set: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -412,10 +412,20 @@
                 <span class="k">raise</span> <span class="ne">EOFError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">&#39; is empty. Please provide a &quot;</span>
                                <span class="sa">f</span><span class="s2">&quot;non-empty file or set filename to &#39;None&#39; if &quot;</span>
                                <span class="sa">f</span><span class="s2">&quot;you want to use an empty CSVPreprocessor.&quot;</span><span class="p">)</span>
-            <span class="n">text_col_idx</span> <span class="o">=</span> <span class="n">headers</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">text_column</span><span class="p">)</span>
-            <span class="n">label_col_idx</span> <span class="o">=</span> <span class="n">headers</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">label_column</span><span class="p">)</span>
-            <span class="n">data</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="n">text_col_idx</span><span class="p">],</span> <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="n">label_col_idx</span><span class="p">]}</span>
-                    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">csv_reader</span><span class="p">]</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">text_col_idx</span> <span class="o">=</span> <span class="n">headers</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">text_column</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">text_column</span><span class="si">}</span><span class="s2">&#39; not a column of &quot;</span>
+                                 <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">. Please provide text column&quot;</span>
+                                 <span class="sa">f</span><span class="s2">&quot;name.&quot;</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">label_col_idx</span> <span class="o">=</span> <span class="n">headers</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">label_column</span><span class="p">)</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="n">text_col_idx</span><span class="p">],</span> <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="n">label_col_idx</span><span class="p">]}</span>
+                        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">csv_reader</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Reading data from </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2"> without label, &quot;</span>
+                               <span class="sa">f</span><span class="s2">&quot;as column </span><span class="si">{</span><span class="n">label_column</span><span class="si">}</span><span class="s2"> does not exist.&quot;</span><span class="p">)</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="n">text_col_idx</span><span class="p">]}</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">csv_reader</span><span class="p">]</span>
 
         <span class="k">return</span> <span class="n">data</span></div>
 </pre></div>

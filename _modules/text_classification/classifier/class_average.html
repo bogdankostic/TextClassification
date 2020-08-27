@@ -213,7 +213,8 @@
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Training done.&quot;</span><span class="p">)</span>
 
         <span class="c1"># evaluate on dev set</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">preprocessor</span><span class="p">,</span> <span class="n">evaluate_test</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">evaluate_dev</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">preprocessor</span><span class="o">.</span><span class="n">get_dev_data</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">preprocessor</span><span class="p">,</span> <span class="n">evaluate_test</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">evaluate_dev</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">self</span></div>
 
@@ -223,7 +224,7 @@
 <span class="sd">        dev set and prints a classification report containing accuracy,</span>
 <span class="sd">        precision, recall and F1-scores.</span>
 
-<span class="sd">        :param preprocessor: Preprocessor containing dev/test data.</span>
+<span class="sd">        :param preprocessor: Preprocessor containing dev/test samples.</span>
 <span class="sd">        :type preprocessor: BasePreprocessor</span>
 <span class="sd">        :param evaluate_test: Whether to evaluate on the test set.</span>
 <span class="sd">        :type evaluate_test: bool</span>
@@ -268,12 +269,12 @@
 <div class="viewcode-block" id="ClassAverageClassifier.predict"><a class="viewcode-back" href="../../../api_classifiers.html#text_classification.classifier.class_average.ClassAverageClassifier.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">preprocessor</span><span class="p">,</span> <span class="n">predict_train</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">predict_test</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="n">predict_dev</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Makes predictions for data inside preprocessor in-place, i.e.</span>
+<span class="sd">        Makes predictions for samples inside preprocessor in-place, i.e.</span>
 <span class="sd">        for each instance, a key &#39;prediction&#39; containing the prediction</span>
 <span class="sd">        is added. Instances have to be featurized before using the same</span>
 <span class="sd">        Featurizer that was used for training instances.</span>
 
-<span class="sd">        :param preprocessor: Preprocessor containing the data to make</span>
+<span class="sd">        :param preprocessor: Preprocessor containing the samples to make</span>
 <span class="sd">            predictions on.</span>
 <span class="sd">        :type preprocessor: BasePreprocessor</span>
 <span class="sd">        :param predict_train: Whether to make predictions on the</span>
@@ -330,7 +331,8 @@
 
         <span class="k">return</span> <span class="n">dicts</span></div>
 
-<div class="viewcode-block" id="ClassAverageClassifier.save_average_feature_vectors"><a class="viewcode-back" href="../../../api_classifiers.html#text_classification.classifier.class_average.ClassAverageClassifier.save_average_feature_vectors">[docs]</a>    <span class="k">def</span> <span class="nf">save_average_feature_vectors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="ClassAverageClassifier.save_average_feature_vectors"><a class="viewcode-back" href="../../../api_classifiers.html#text_classification.classifier.class_average.ClassAverageClassifier.save_average_feature_vectors">[docs]</a>    <span class="k">def</span> <span class="nf">save_average_feature_vectors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span>
+                                     <span class="n">label_col</span><span class="o">=</span><span class="s2">&quot;label&quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Saves the trained average vectors to a CSV-file.</span>
 
@@ -338,11 +340,13 @@
 <span class="sd">        :type filename: str</span>
 <span class="sd">        :param delimiter: Delimiter used in CSV-file.</span>
 <span class="sd">        :type delimiter: str</span>
+<span class="sd">        :param label_col: Name of label column.</span>
+<span class="sd">        :type label_col: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saving average feature vectors to </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
             <span class="n">csv_writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="n">delimiter</span><span class="p">)</span>
-            <span class="n">csv_writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">([</span><span class="s2">&quot;label&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">feature_names</span><span class="p">)</span>
+            <span class="n">csv_writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">([</span><span class="n">label_col</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">feature_names</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_average_feature_values</span><span class="p">:</span>
                 <span class="n">csv_writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">([</span><span class="n">label</span><span class="p">]</span> <span class="o">+</span>
                                     <span class="bp">self</span><span class="o">.</span><span class="n">_average_feature_values</span><span class="p">[</span><span class="n">label</span><span class="p">])</span></div>
@@ -363,21 +367,31 @@
 <span class="sd">        :return: ClassAverageClassifier instance.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loading average feature vectors from </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+
+        <span class="n">classifier</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">()</span>
+
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
             <span class="n">csv_reader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="n">delimiter</span><span class="p">)</span>
             <span class="n">headers</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">csv_reader</span><span class="p">)</span>
             <span class="n">label_col_idx</span> <span class="o">=</span> <span class="n">headers</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">label_col</span><span class="p">)</span>
             <span class="n">headers</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">label_col_idx</span><span class="p">)</span>
-            <span class="n">classifier</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">()</span>
             <span class="n">classifier</span><span class="o">.</span><span class="n">feature_names</span> <span class="o">=</span> <span class="n">headers</span>
+
             <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">csv_reader</span><span class="p">:</span>
                 <span class="n">label</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="n">label_col_idx</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">label</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">classifier</span><span class="o">.</span><span class="n">labels</span><span class="p">:</span>
+                    <span class="n">classifier</span><span class="o">.</span><span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
                 <span class="n">row</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">label_col_idx</span><span class="p">)</span>
-                <span class="n">classifier</span><span class="o">.</span><span class="n">_average_feature_values</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="n">row</span>
+                <span class="n">classifier</span><span class="o">.</span><span class="n">_average_feature_values</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+                                                             <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">row</span><span class="p">]</span>
 
         <span class="k">return</span> <span class="n">classifier</span></div>
 
     <span class="k">def</span> <span class="nf">_get_most_similar_label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">):</span>
+        <span class="c1"># Computes similarity value of instance with average feature vector for</span>
+        <span class="c1"># each class. The smaller similarity value, the more similar are</span>
+        <span class="c1"># instance and average feature vector.</span>
+
         <span class="n">similarity_values</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
         <span class="n">instance_vector</span> <span class="o">=</span> <span class="n">instance</span><span class="p">[</span><span class="s2">&quot;feature_vector&quot;</span><span class="p">]</span>
 
@@ -388,7 +402,7 @@
                               <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">instance_vector</span><span class="p">,</span> <span class="n">average_vector</span><span class="p">)])</span>
             <span class="n">similarity_values</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="n">similarity</span>
 
-        <span class="n">most_similar_label</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">similarity_values</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">similarity_values</span><span class="o">.</span><span class="n">get</span><span class="p">)</span>
+        <span class="n">most_similar_label</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">similarity_values</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">similarity_values</span><span class="o">.</span><span class="n">get</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">most_similar_label</span></div>
 </pre></div>

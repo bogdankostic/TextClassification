@@ -177,12 +177,12 @@ ensure uniformity.</p>
 <em class="property">class </em><code class="sig-prename descclassname">text_classification.preprocessor.csv_preprocessor.</code><code class="sig-name descname">CSVPreprocessor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">train_filename</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">test_filename</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dev_filename</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">test_split</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">dev_split</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">delimiter</span><span class="o">=</span><span class="default_value">'\t'</span></em>, <em class="sig-param"><span class="n">text_column</span><span class="o">=</span><span class="default_value">'text'</span></em>, <em class="sig-param"><span class="n">label_column</span><span class="o">=</span><span class="default_value">'label'</span></em>, <em class="sig-param"><span class="n">random_state</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/preprocessor/csv_preprocessor.html#CSVPreprocessor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.preprocessor.csv_preprocessor.CSVPreprocessor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#text_classification.preprocessor.base.BasePreprocessor" title="text_classification.preprocessor.base.BasePreprocessor"><code class="xref py py-class docutils literal notranslate"><span class="pre">text_classification.preprocessor.base.BasePreprocessor</span></code></a></p>
 <p>Preprocessor that is able to read a csv-file and do train/test/dev
-split. A preprocessor instance serves as a data storage whose
+split. A preprocessor instance serves as a samples storage whose
 instances can be extended with feature vectors and predictions.</p>
 <dl class="py method">
 <dt id="text_classification.preprocessor.csv_preprocessor.CSVPreprocessor.from_file">
 <em class="property">classmethod </em><code class="sig-name descname">from_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">train_filename</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">test_filename</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dev_filename</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">test_split</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">dev_split</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">delimiter</span><span class="o">=</span><span class="default_value">'\t'</span></em>, <em class="sig-param"><span class="n">text_column</span><span class="o">=</span><span class="default_value">'text'</span></em>, <em class="sig-param"><span class="n">label_column</span><span class="o">=</span><span class="default_value">'label'</span></em>, <em class="sig-param"><span class="n">random_state</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/preprocessor/csv_preprocessor.html#CSVPreprocessor.from_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.preprocessor.csv_preprocessor.CSVPreprocessor.from_file" title="Permalink to this definition">¶</a></dt>
-<dd><p>Load data from csv-files.</p>
+<dd><p>Load samples from csv-files.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -196,7 +196,7 @@ dev set.</p></li>
 <li><p><strong>delimiter</strong> (<em>str</em>) – Delimiter that is used in csv-file.</p></li>
 <li><p><strong>text_column</strong> (<em>str</em>) – Column in csv-file containing text.</p></li>
 <li><p><strong>label_column</strong> (<em>str</em>) – Column in csv-file containing label.</p></li>
-<li><p><strong>random_state</strong> (<em>int</em>) – Random state for shuffling data.</p></li>
+<li><p><strong>random_state</strong> (<em>int</em>) – Random state for shuffling samples.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -255,13 +255,13 @@ dev set.</p></li>
 <dl class="py method">
 <dt id="text_classification.preprocessor.csv_preprocessor.CSVPreprocessor.write_csv">
 <code class="sig-name descname">write_csv</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em>, <em class="sig-param"><span class="n">delimiter</span><span class="o">=</span><span class="default_value">'\t'</span></em>, <em class="sig-param"><span class="n">set</span><span class="o">=</span><span class="default_value">'test'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/preprocessor/csv_preprocessor.html#CSVPreprocessor.write_csv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.preprocessor.csv_preprocessor.CSVPreprocessor.write_csv" title="Permalink to this definition">¶</a></dt>
-<dd><p>Write data (i.e. text, label, prediction) to a csv-file.</p>
+<dd><p>Write samples (i.e. text, label, prediction) to a csv-file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>filename</strong> (<em>str</em>) – File to write the data to.</p></li>
+<li><p><strong>filename</strong> (<em>str</em>) – File to write the samples to.</p></li>
 <li><p><strong>delimiter</strong> (<em>str</em>) – Delimiter that is used in csv-file.</p></li>
-<li><p><strong>set</strong> (<em>str</em>) – Which data set to write.
+<li><p><strong>set</strong> (<em>str</em>) – Which samples set to write.
 Possible values: “train”, “test”, “dev”</p></li>
 </ul>
 </dd>
@@ -277,7 +277,7 @@ Possible values: “train”, “test”, “dev”</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>filename</strong> (<em>str</em>) – File to write the feature vectors to.</p></li>
 <li><p><strong>delimiter</strong> (<em>str</em>) – Delimiter that is used in csv-file.</p></li>
-<li><p><strong>set</strong> (<em>str</em>) – From which data set to write the feature vectors.
+<li><p><strong>set</strong> (<em>str</em>) – From which samples set to write the feature vectors.
 Possible values: “train”, “test”, “dev”</p></li>
 </ul>
 </dd>
