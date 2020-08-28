@@ -164,7 +164,7 @@ class TweetFeaturizer(BaseFeaturizer):
             for feature, count in counts.items():
                 counts[feature] = counts[feature] / token_counts
 
-        counts["token_counts"] = len(instance["tokens"])
+        counts["token_counts"] = token_counts
         counts["avg_token_len"] = mean(len(token)
                                        for token in instance["tokens"])
 
@@ -212,17 +212,14 @@ class TweetFeaturizer(BaseFeaturizer):
             tokens = []
             lemmas = []
             pos_tags = []
-            is_alpha = []
             is_stop = []
             is_emoji = []
             for token in spacy_doc:
                 tokens.append(token.text)
                 lemmas.append(token.lemma_)
                 pos_tags.append(token.pos_)
-                is_alpha.append(token.is_alpha)
                 is_stop.append(token.is_stop)
                 is_emoji.append(token._.is_emoji)
-                # TODO check if spelling error?? --> spacy_hunspell?
 
             named_entities = [span.label_ for span in spacy_doc.ents]
             sample.update(
@@ -230,7 +227,6 @@ class TweetFeaturizer(BaseFeaturizer):
                 lemmas=lemmas,
                 pos_tags=pos_tags,
                 named_entities=named_entities,
-                is_alpha=is_alpha,
                 is_stop=is_stop,
                 is_emoji=is_emoji,
             )

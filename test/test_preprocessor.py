@@ -3,6 +3,7 @@ from text_classification.preprocessor.csv_preprocessor import CSVPreprocessor
 
 def test_read_data():
     # Test whether samples is read in completely
+
     real_data = [
         {"text": "text 1", "label": "0"},
         {"text": "text 2", "label": "1"},
@@ -29,6 +30,7 @@ def test_read_data():
 def test_different_column_names():
     # Test whether different column names can be passed
     # Test whether samples is read in completely
+
     real_data = [
         {"text": "text 1", "label": "0"},
         {"text": "text 2", "label": "1"},
@@ -56,6 +58,7 @@ def test_different_column_names():
 
 def test_splits():
     # Test whether test and dev splits are made correctly
+
     preprocessor = CSVPreprocessor(
         train_filename="samples/sample_data.tsv",
         test_split=0.2,
@@ -69,6 +72,7 @@ def test_splits():
 
 def test_splits_with_additional_data():
     # Test whether additional test and dev samples is handled correctly
+
     preprocessor = CSVPreprocessor(
         train_filename="samples/sample_data.tsv",
         test_filename="samples/sample_data.tsv",

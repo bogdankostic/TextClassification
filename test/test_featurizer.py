@@ -54,7 +54,7 @@ def test_number_of_occurences_char_features():
     assert char_instance["feature_vector"][at_index] == 3
 
 def test_number_of_occurences_word_features():
-    # Test whether featurizer extract correct number of features
+    # Test whether featurizer extracts correct number of features
 
     preprocessor = CSVPreprocessor(train_filename="samples/featurizer.tsv")
     featurizer = TweetFeaturizer(normalize=False)

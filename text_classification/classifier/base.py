@@ -19,7 +19,7 @@ class BaseClassifier(ABC):
         pass
 
     @abstractmethod
-    def evaluate(self, preprocessot, evaluate_test=True, evaluate_dev=False):
+    def evaluate(self, preprocessor, evaluate_test=True, evaluate_dev=False):
         pass
 
     def save(self, filename):

@@ -1,7 +1,7 @@
 # This example script loads the 'Hillary Clinton and Donald Trump Tweets'
 # dataset and trains and evaluates a classifier on it.
 # To be able to use this script, you need to download the dataset
-# manually and put it in the samples folder.
+# manually and put it in the data folder: TextClassification/examples/data
 # Data source: https://www.kaggle.com/benhamner/clinton-trump-tweets
 
 from text_classification.preprocessor.csv_preprocessor import CSVPreprocessor

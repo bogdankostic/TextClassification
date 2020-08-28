@@ -4,7 +4,11 @@ from text_classification.classifier.class_average import ClassAverageClassifier
 
 
 def test_train():
-    # Tests whether ClassAverageClassifier extracts correct average vectors
+    # Tests whether ClassAverageClassifier extracts correct average
+    # vectors from "samples/classifier_train.tsv". This file contains
+    # two classes which look very different from each other. In this
+    # test, we are checking whether the calculation of average features
+    # is done correctly and stored properly.
 
     preprocessor = CSVPreprocessor(
         train_filename="samples/classifier_train.tsv")
@@ -43,7 +47,10 @@ def test_train():
 
 
 def test_predict():
-    # Tests whether ClassAverageClassifier makes correct predictions
+    # Tests whether ClassAverageClassifier makes correct predictions.
+    # for "samples/classifier_test.tsv". The classifier is trained on
+    # two very differing classes and predictions are made on instances
+    # which obviously persist to one of the classes.
 
     preprocessor = CSVPreprocessor(
         train_filename="samples/classifier_train.tsv",
