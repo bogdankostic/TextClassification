@@ -43,5 +43,9 @@ classifier.train(preprocessor)
 More detailed examples can be found in the [examples](https://github.com/bogdankostic/TextClassification/tree/master/examples)
 directory.
 
+## Tests
+Tests can be executed using the command `pytest` from within 
+the test folder `TextClassification/test`.
+
  
  

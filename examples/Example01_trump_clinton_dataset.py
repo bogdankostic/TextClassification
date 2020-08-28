@@ -20,7 +20,7 @@ preprocessor = CSVPreprocessor(
 )
 
 # 2) Extract features out of the text.
-featurizer = TweetFeaturizer(normalize=True)
+featurizer = TweetFeaturizer(normalize=False)
 featurizer.extract_features(preprocessor)
 
 # 3) Train the classifier.
@@ -31,4 +31,4 @@ classifier.train(preprocessor)
 classifier.evaluate(preprocessor)
 
 # 5) Write predictions on the test set to csv.
-preprocessor.write_csv("samples/preds.tsv", set="test")
+preprocessor.write_csv("data/preds.tsv", set="test")

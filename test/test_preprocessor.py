@@ -1,8 +1,8 @@
 from text_classification.preprocessor.csv_preprocessor import CSVPreprocessor
 
 
-def test_read_data():
-    # Test whether samples is read in completely
+def test_read_data(sample_csv_preprocessor):
+    # Test whether samples are read in completely
 
     real_data = [
         {"text": "text 1", "label": "0"},
@@ -17,14 +17,10 @@ def test_read_data():
         {"text": "text 10", "label": "1"},
     ]
 
-    preprocessor = CSVPreprocessor(
-        train_filename="samples/sample_data.tsv"
-    )
+    preprocessor_data = sample_csv_preprocessor.get_train_data()
 
-    preprocessor_data = preprocessor.get_train_data()
-
-    for real_instance, pre_instance in zip(real_data, preprocessor_data):
-        assert real_instance == pre_instance
+    assert all([real_instance == prep_instance for real_instance, prep_instance
+                in zip(real_data, preprocessor_data)])
 
 
 def test_different_column_names():
@@ -52,35 +48,36 @@ def test_different_column_names():
 
     preprocessor_data = preprocessor.get_train_data()
 
-    for real_instance, pre_instance in zip(real_data, preprocessor_data):
-        assert real_instance == pre_instance
+    assert all([real_instance == prep_instance for real_instance, prep_instance
+                in zip(real_data, preprocessor_data)])
 
 
-def test_splits():
-    # Test whether test and dev splits are made correctly
-
-    preprocessor = CSVPreprocessor(
-        train_filename="samples/sample_data.tsv",
-        test_split=0.2,
-        dev_split=0.1
-    )
-
-    assert len(preprocessor.get_train_data()) == 7
-    assert len(preprocessor.get_test_data()) == 2
-    assert len(preprocessor.get_dev_data()) == 1
+def test_train_split(split_csv_preprocessor):
+    # Test Whether train split is made correctly
+    assert len(split_csv_preprocessor.get_train_data()) == 7
 
 
-def test_splits_with_additional_data():
-    # Test whether additional test and dev samples is handled correctly
+def test_test_split(split_csv_preprocessor):
+    # Test Whether train split is made correctly
+    assert len(split_csv_preprocessor.get_test_data()) == 2
 
-    preprocessor = CSVPreprocessor(
-        train_filename="samples/sample_data.tsv",
-        test_filename="samples/sample_data.tsv",
-        dev_filename="samples/sample_data.tsv",
-        test_split=0.2,
-        dev_split=0.1
-    )
 
-    assert len(preprocessor.get_train_data()) == 7
-    assert len(preprocessor.get_test_data()) == 12
-    assert len(preprocessor.get_dev_data()) == 11
+def test_dev_split(split_csv_preprocessor):
+    # Test Whether train split is made correctly
+    assert len(split_csv_preprocessor.get_dev_data()) == 1
+
+
+def test_train_split_additional_data(split_csv_preprocessor_additional_data):
+    # Test Whether train split is made correctly with additional data
+    assert len(split_csv_preprocessor_additional_data.get_train_data()) == 7
+
+
+def test_test_split_additional_data(split_csv_preprocessor_additional_data):
+    # Test Whether train split is made correctly with additional data
+    assert len(split_csv_preprocessor_additional_data.get_test_data()) == 12
+
+
+def test_dev_split_additional_data(split_csv_preprocessor_additional_data):
+    # Test Whether train split is made correctly with additional data
+    assert len(split_csv_preprocessor_additional_data.get_dev_data()) == 11
+
