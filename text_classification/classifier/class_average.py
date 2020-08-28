@@ -27,7 +27,10 @@ class ClassAverageClassifier(BaseClassifier):
         Computes the average feature vector for each class in the pre-
         processor's train set.
 
-        :param preprocessor:
+        :param preprocessor: Preprocessor instance that contains a train
+            set and has been already featurized, i.e. each train instance
+            should contain the key "feature_vector", "feature_names"
+            and "label".
         :type preprocessor: BasePreprocessor
         :return: ClassAverageClassifier
         """
