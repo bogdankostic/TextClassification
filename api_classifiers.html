@@ -161,7 +161,7 @@
 uniformity.</p>
 <dl class="py method">
 <dt id="text_classification.classifier.base.BaseClassifier.evaluate">
-<em class="property">abstract </em><code class="sig-name descname">evaluate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">preprocessot</span></em>, <em class="sig-param"><span class="n">evaluate_test</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">evaluate_dev</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/classifier/base.html#BaseClassifier.evaluate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.classifier.base.BaseClassifier.evaluate" title="Permalink to this definition">¶</a></dt>
+<em class="property">abstract </em><code class="sig-name descname">evaluate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">preprocessor</span></em>, <em class="sig-param"><span class="n">evaluate_test</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">evaluate_dev</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/classifier/base.html#BaseClassifier.evaluate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.classifier.base.BaseClassifier.evaluate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -305,7 +305,10 @@ instance,</p>
 processor’s train set.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>preprocessor</strong> (<a class="reference internal" href="api_preprocessors.html#text_classification.preprocessor.base.BasePreprocessor" title="text_classification.preprocessor.base.BasePreprocessor"><em>BasePreprocessor</em></a>) – </p>
+<dd class="field-odd"><p><strong>preprocessor</strong> (<a class="reference internal" href="api_preprocessors.html#text_classification.preprocessor.base.BasePreprocessor" title="text_classification.preprocessor.base.BasePreprocessor"><em>BasePreprocessor</em></a>) – Preprocessor instance that contains a train
+set and has been already featurized, i.e. each train instance
+should contain the key “feature_vector”, “feature_names”
+and “label”.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>ClassAverageClassifier</p>

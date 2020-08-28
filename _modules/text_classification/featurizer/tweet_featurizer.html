@@ -315,7 +315,7 @@
             <span class="k">for</span> <span class="n">feature</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">counts</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
                 <span class="n">counts</span><span class="p">[</span><span class="n">feature</span><span class="p">]</span> <span class="o">=</span> <span class="n">counts</span><span class="p">[</span><span class="n">feature</span><span class="p">]</span> <span class="o">/</span> <span class="n">token_counts</span>
 
-        <span class="n">counts</span><span class="p">[</span><span class="s2">&quot;token_counts&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">instance</span><span class="p">[</span><span class="s2">&quot;tokens&quot;</span><span class="p">])</span>
+        <span class="n">counts</span><span class="p">[</span><span class="s2">&quot;token_counts&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">token_counts</span>
         <span class="n">counts</span><span class="p">[</span><span class="s2">&quot;avg_token_len&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mean</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
                                        <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">instance</span><span class="p">[</span><span class="s2">&quot;tokens&quot;</span><span class="p">])</span>
 
@@ -363,17 +363,14 @@
             <span class="n">tokens</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="n">lemmas</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="n">pos_tags</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="n">is_alpha</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="n">is_stop</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="n">is_emoji</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">spacy_doc</span><span class="p">:</span>
                 <span class="n">tokens</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
                 <span class="n">lemmas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">lemma_</span><span class="p">)</span>
                 <span class="n">pos_tags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">pos_</span><span class="p">)</span>
-                <span class="n">is_alpha</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">is_alpha</span><span class="p">)</span>
                 <span class="n">is_stop</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">is_stop</span><span class="p">)</span>
                 <span class="n">is_emoji</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">is_emoji</span><span class="p">)</span>
-                <span class="c1"># TODO check if spelling error?? --&gt; spacy_hunspell?</span>
 
             <span class="n">named_entities</span> <span class="o">=</span> <span class="p">[</span><span class="n">span</span><span class="o">.</span><span class="n">label_</span> <span class="k">for</span> <span class="n">span</span> <span class="ow">in</span> <span class="n">spacy_doc</span><span class="o">.</span><span class="n">ents</span><span class="p">]</span>
             <span class="n">sample</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
@@ -381,7 +378,6 @@
                 <span class="n">lemmas</span><span class="o">=</span><span class="n">lemmas</span><span class="p">,</span>
                 <span class="n">pos_tags</span><span class="o">=</span><span class="n">pos_tags</span><span class="p">,</span>
                 <span class="n">named_entities</span><span class="o">=</span><span class="n">named_entities</span><span class="p">,</span>
-                <span class="n">is_alpha</span><span class="o">=</span><span class="n">is_alpha</span><span class="p">,</span>
                 <span class="n">is_stop</span><span class="o">=</span><span class="n">is_stop</span><span class="p">,</span>
                 <span class="n">is_emoji</span><span class="o">=</span><span class="n">is_emoji</span><span class="p">,</span>
             <span class="p">)</span></div>
