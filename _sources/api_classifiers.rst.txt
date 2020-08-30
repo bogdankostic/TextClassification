@@ -5,10 +5,8 @@ Classifiers
    :members:
    :undoc-members:
    :show-inheritance:
-   :special-members:
 
 .. automodule:: text_classification.classifier.class_average
    :members:
    :undoc-members:
    :show-inheritance:
-   :special-members:

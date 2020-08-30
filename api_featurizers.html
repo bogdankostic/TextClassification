@@ -165,27 +165,6 @@ uniformity.</p>
 <code class="sig-name descname">COARSE_POS_TAGS</code><em class="property"> = ['ADJ', 'ADP', 'ADV', 'AUX', 'CONJ', 'CCONJ', 'DET', 'INTJ', 'NOUN', 'NUM', 'PART', 'PRON', 'PROPN', 'PUNCT', 'SCONJ', 'SYM', 'VERB', 'X', 'SPACE']</em><a class="headerlink" href="#text_classification.featurizer.base.BaseFeaturizer.COARSE_POS_TAGS" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py attribute">
-<dt id="text_classification.featurizer.base.BaseFeaturizer.__abstractmethods__">
-<code class="sig-name descname">__abstractmethods__</code><em class="property"> = frozenset({'add_feature', 'extract_features'})</em><a class="headerlink" href="#text_classification.featurizer.base.BaseFeaturizer.__abstractmethods__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="text_classification.featurizer.base.BaseFeaturizer.__dict__">
-<code class="sig-name descname">__dict__</code><em class="property"> = mappingproxy({'__module__': 'text_classification.featurizer.base', '__doc__': '\n    Base class that all featurizer classes should inherit from to ensure\n    uniformity.\n    ', 'COARSE_POS_TAGS': ['ADJ', 'ADP', 'ADV', 'AUX', 'CONJ', 'CCONJ', 'DET', 'INTJ', 'NOUN', 'NUM', 'PART', 'PRON', 'PROPN', 'PUNCT', 'SCONJ', 'SYM', 'VERB', 'X', 'SPACE'], 'extract_features': &lt;function BaseFeaturizer.extract_features&gt;, 'add_feature': &lt;function BaseFeaturizer.add_feature&gt;, 'save': &lt;function BaseFeaturizer.save&gt;, 'load': &lt;classmethod object&gt;, '__dict__': &lt;attribute '__dict__' of 'BaseFeaturizer' objects&gt;, '__weakref__': &lt;attribute '__weakref__' of 'BaseFeaturizer' objects&gt;, '__abstractmethods__': frozenset({'add_feature', 'extract_features'}), '_abc_impl': &lt;_abc_data object&gt;})</em><a class="headerlink" href="#text_classification.featurizer.base.BaseFeaturizer.__dict__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="text_classification.featurizer.base.BaseFeaturizer.__module__">
-<code class="sig-name descname">__module__</code><em class="property"> = 'text_classification.featurizer.base'</em><a class="headerlink" href="#text_classification.featurizer.base.BaseFeaturizer.__module__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="text_classification.featurizer.base.BaseFeaturizer.__weakref__">
-<code class="sig-name descname">__weakref__</code><a class="headerlink" href="#text_classification.featurizer.base.BaseFeaturizer.__weakref__" title="Permalink to this definition">¶</a></dt>
-<dd><p>list of weak references to the object (if defined)</p>
-</dd></dl>
-
 <dl class="py method">
 <dt id="text_classification.featurizer.base.BaseFeaturizer.add_feature">
 <em class="property">abstract </em><code class="sig-name descname">add_feature</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">feature_extraction_function</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/featurizer/base.html#BaseFeaturizer.add_feature"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.featurizer.base.BaseFeaturizer.add_feature" title="Permalink to this definition">¶</a></dt>
@@ -232,11 +211,6 @@ saved.</p>
 <p>Featurizer that extracts features from tweets, i.e. it doesn’t
 contain any paragraph-based features as these don’t apply for
 tweets.</p>
-<dl class="py attribute">
-<dt id="text_classification.featurizer.tweet_featurizer.TweetFeaturizer.__abstractmethods__">
-<code class="sig-name descname">__abstractmethods__</code><em class="property"> = frozenset({})</em><a class="headerlink" href="#text_classification.featurizer.tweet_featurizer.TweetFeaturizer.__abstractmethods__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="py method">
 <dt id="text_classification.featurizer.tweet_featurizer.TweetFeaturizer.__init__">
 <code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">lang_model</span><span class="o">=</span><span class="default_value">'en_core_web_sm'</span></em>, <em class="sig-param"><span class="n">normalize</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/featurizer/tweet_featurizer.html#TweetFeaturizer.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.featurizer.tweet_featurizer.TweetFeaturizer.__init__" title="Permalink to this definition">¶</a></dt>
@@ -251,11 +225,6 @@ number of chars/tokens.</p></li>
 </dd>
 </dl>
 </dd></dl>
-
-<dl class="py attribute">
-<dt id="text_classification.featurizer.tweet_featurizer.TweetFeaturizer.__module__">
-<code class="sig-name descname">__module__</code><em class="property"> = 'text_classification.featurizer.tweet_featurizer'</em><a class="headerlink" href="#text_classification.featurizer.tweet_featurizer.TweetFeaturizer.__module__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 <dl class="py method">
 <dt id="text_classification.featurizer.tweet_featurizer.TweetFeaturizer.add_feature">
