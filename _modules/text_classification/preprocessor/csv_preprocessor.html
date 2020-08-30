@@ -165,7 +165,7 @@
 <span class="sd">    instances can be extended with feature vectors and predictions.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">test_filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<div class="viewcode-block" id="CSVPreprocessor.__init__"><a class="viewcode-back" href="../../../api_preprocessors.html#text_classification.preprocessor.csv_preprocessor.CSVPreprocessor.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">test_filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">dev_filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">test_split</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dev_split</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span>
                  <span class="n">text_column</span><span class="o">=</span><span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="n">label_column</span><span class="o">=</span><span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -257,7 +257,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">dev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_data</span><span class="p">(</span><span class="n">dev_filename</span><span class="p">,</span> <span class="n">delimiter</span><span class="p">,</span>
                                               <span class="n">text_column</span><span class="p">,</span> <span class="n">label_column</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">dev</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">dev</span> <span class="o">=</span> <span class="p">[]</span></div>
 
 <div class="viewcode-block" id="CSVPreprocessor.get_data"><a class="viewcode-back" href="../../../api_preprocessors.html#text_classification.preprocessor.csv_preprocessor.CSVPreprocessor.get_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>

@@ -159,6 +159,27 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
 <p>Base class that all classifier classes should inherit from to ensure
 uniformity.</p>
+<dl class="py attribute">
+<dt id="text_classification.classifier.base.BaseClassifier.__abstractmethods__">
+<code class="sig-name descname">__abstractmethods__</code><em class="property"> = frozenset({'evaluate', 'predict', 'train'})</em><a class="headerlink" href="#text_classification.classifier.base.BaseClassifier.__abstractmethods__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="text_classification.classifier.base.BaseClassifier.__dict__">
+<code class="sig-name descname">__dict__</code><em class="property"> = mappingproxy({'__module__': 'text_classification.classifier.base', '__doc__': '\n    Base class that all classifier classes should inherit from to ensure\n    uniformity.\n    ', 'train': &lt;function BaseClassifier.train&gt;, 'predict': &lt;function BaseClassifier.predict&gt;, 'evaluate': &lt;function BaseClassifier.evaluate&gt;, 'save': &lt;function BaseClassifier.save&gt;, 'load': &lt;classmethod object&gt;, '__dict__': &lt;attribute '__dict__' of 'BaseClassifier' objects&gt;, '__weakref__': &lt;attribute '__weakref__' of 'BaseClassifier' objects&gt;, '__abstractmethods__': frozenset({'evaluate', 'train', 'predict'}), '_abc_impl': &lt;_abc_data object&gt;})</em><a class="headerlink" href="#text_classification.classifier.base.BaseClassifier.__dict__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="text_classification.classifier.base.BaseClassifier.__module__">
+<code class="sig-name descname">__module__</code><em class="property"> = 'text_classification.classifier.base'</em><a class="headerlink" href="#text_classification.classifier.base.BaseClassifier.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="text_classification.classifier.base.BaseClassifier.__weakref__">
+<code class="sig-name descname">__weakref__</code><a class="headerlink" href="#text_classification.classifier.base.BaseClassifier.__weakref__" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of weak references to the object (if defined)</p>
+</dd></dl>
+
 <dl class="py method">
 <dt id="text_classification.classifier.base.BaseClassifier.evaluate">
 <em class="property">abstract </em><code class="sig-name descname">evaluate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">preprocessor</span></em>, <em class="sig-param"><span class="n">evaluate_test</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">evaluate_dev</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/classifier/base.html#BaseClassifier.evaluate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.classifier.base.BaseClassifier.evaluate" title="Permalink to this definition">¶</a></dt>
@@ -210,6 +231,22 @@ saved.</p>
 <p>A classifier that computes average feature values for each class and
 predicts the class whose average feature vector is most similar to
 the instance to predict tha class for.</p>
+<dl class="py attribute">
+<dt id="text_classification.classifier.class_average.ClassAverageClassifier.__abstractmethods__">
+<code class="sig-name descname">__abstractmethods__</code><em class="property"> = frozenset({})</em><a class="headerlink" href="#text_classification.classifier.class_average.ClassAverageClassifier.__abstractmethods__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="text_classification.classifier.class_average.ClassAverageClassifier.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/classifier/class_average.html#ClassAverageClassifier.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.classifier.class_average.ClassAverageClassifier.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="text_classification.classifier.class_average.ClassAverageClassifier.__module__">
+<code class="sig-name descname">__module__</code><em class="property"> = 'text_classification.classifier.class_average'</em><a class="headerlink" href="#text_classification.classifier.class_average.ClassAverageClassifier.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt id="text_classification.classifier.class_average.ClassAverageClassifier.evaluate">
 <code class="sig-name descname">evaluate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">preprocessor</span></em>, <em class="sig-param"><span class="n">evaluate_test</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">evaluate_dev</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/classifier/class_average.html#ClassAverageClassifier.evaluate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.classifier.class_average.ClassAverageClassifier.evaluate" title="Permalink to this definition">¶</a></dt>

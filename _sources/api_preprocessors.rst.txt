@@ -5,8 +5,10 @@ Preprocessors
    :members:
    :undoc-members:
    :show-inheritance:
+   :special-members:
 
 .. automodule:: text_classification.preprocessor.csv_preprocessor
    :members:
    :undoc-members:
    :show-inheritance:
+   :special-members:

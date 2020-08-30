@@ -5,8 +5,10 @@ Featurizers
    :members:
    :undoc-members:
    :show-inheritance:
+   :special-members:
 
 .. automodule:: text_classification.featurizer.tweet_featurizer
    :members:
    :undoc-members:
    :show-inheritance:
+   :special-members:
