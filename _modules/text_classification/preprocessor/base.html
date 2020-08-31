@@ -155,7 +155,26 @@
 <div class="viewcode-block" id="BasePreprocessor"><a class="viewcode-back" href="../../../api_preprocessors.html#text_classification.preprocessor.base.BasePreprocessor">[docs]</a><span class="k">class</span> <span class="nc">BasePreprocessor</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Base class that all preprocessor classes should inherit from to</span>
-<span class="sd">    ensure uniformity.</span>
+<span class="sd">    ensure uniformity. Classes inheriting from BasePreprocessor should</span>
+<span class="sd">    consist of at least these three instance variables: train, test and</span>
+<span class="sd">    dev. Each of these variables should contain the data split</span>
+<span class="sd">    corresponding to its name. Each data split should be a list of</span>
+<span class="sd">    dictionaries, where each dictionary represents one instance and</span>
+<span class="sd">    contains the fields :code:`text` and :code:`label` holding the</span>
+<span class="sd">    instance&#39;s corresponding value.</span>
+<span class="sd">    ::</span>
+<span class="sd">        self.train, self.test, self.dev = [</span>
+<span class="sd">            {</span>
+<span class="sd">                &quot;text&quot;: instance_1 text,</span>
+<span class="sd">                &quot;label&quot;: instance_1 label</span>
+<span class="sd">            },</span>
+<span class="sd">            {</span>
+<span class="sd">                &quot;text&quot;: instance_2 text,</span>
+<span class="sd">                &quot;label&quot;: instance_2 label</span>
+<span class="sd">            },</span>
+<span class="sd">            ...</span>
+<span class="sd">        ]</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="BasePreprocessor.from_file"><a class="viewcode-back" href="../../../api_preprocessors.html#text_classification.preprocessor.base.BasePreprocessor.from_file">[docs]</a>    <span class="nd">@classmethod</span>
@@ -165,6 +184,22 @@
 
 <div class="viewcode-block" id="BasePreprocessor.write_csv"><a class="viewcode-back" href="../../../api_preprocessors.html#text_classification.preprocessor.base.BasePreprocessor.write_csv">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">write_csv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">delimiter</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="BasePreprocessor.get_data"><a class="viewcode-back" href="../../../api_preprocessors.html#text_classification.preprocessor.base.BasePreprocessor.get_data">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="BasePreprocessor.get_train_data"><a class="viewcode-back" href="../../../api_preprocessors.html#text_classification.preprocessor.base.BasePreprocessor.get_train_data">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">get_train_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="BasePreprocessor.get_test_data"><a class="viewcode-back" href="../../../api_preprocessors.html#text_classification.preprocessor.base.BasePreprocessor.get_test_data">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">get_test_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="BasePreprocessor.get_dev_data"><a class="viewcode-back" href="../../../api_preprocessors.html#text_classification.preprocessor.base.BasePreprocessor.get_dev_data">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">get_dev_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">pass</span></div></div>
 </pre></div>
 

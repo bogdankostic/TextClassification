@@ -168,12 +168,35 @@ uniformity.</p>
 <dl class="py method">
 <dt id="text_classification.featurizer.base.BaseFeaturizer.add_feature">
 <em class="property">abstract </em><code class="sig-name descname">add_feature</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">feature_extraction_function</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/featurizer/base.html#BaseFeaturizer.add_feature"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.featurizer.base.BaseFeaturizer.add_feature" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Should add a custom feature extraction function to the ones
+defined in the inheriting class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>feature_extraction_function</strong> (<em>function</em>) – Custom function that
+extracts features from text.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt id="text_classification.featurizer.base.BaseFeaturizer.extract_features">
 <em class="property">abstract </em><code class="sig-name descname">extract_features</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">preprocessor</span></em>, <em class="sig-param"><span class="n">exclude</span><span class="o">=</span><span class="default_value">{}</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/featurizer/base.html#BaseFeaturizer.extract_features"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.featurizer.base.BaseFeaturizer.extract_features" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Should add two fields to the preprocessor’s instances:
+<code class="code docutils literal notranslate"><span class="pre">feature_vector</span></code> and <code class="code docutils literal notranslate"><span class="pre">feature_names</span></code>, where
+<code class="code docutils literal notranslate"><span class="pre">feature_vector</span></code> is a list of numerical values
+(=feature values) and <code class="code docutils literal notranslate"><span class="pre">feature_names</span></code> is a list of
+strings (=brief description of features).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>preprocessor</strong> (<a class="reference internal" href="api_preprocessors.html#text_classification.preprocessor.base.BasePreprocessor" title="text_classification.preprocessor.base.BasePreprocessor"><em>BasePreprocessor</em></a>) – Preprocessor containing samples to featurize.</p></li>
+<li><p><strong>exclude</strong> – Set of features that should be excluded from
+resulting feature vectors.</p></li>
+<li><p><strong>exclude</strong> – Set[str]</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt id="text_classification.featurizer.base.BaseFeaturizer.load">

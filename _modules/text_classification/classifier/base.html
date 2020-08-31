@@ -162,15 +162,49 @@
 
 <div class="viewcode-block" id="BaseClassifier.train"><a class="viewcode-back" href="../../../api_classifiers.html#text_classification.classifier.base.BaseClassifier.train">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">preprocessor</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Should train the classifier on the preprocessor&#39;s train set.</span>
+
+<span class="sd">        :param preprocessor: Preprocessor instance that contains the</span>
+<span class="sd">            train set to train the classifier on.</span>
+<span class="sd">        :type preprocessor: BasePreprocessor</span>
+<span class="sd">        :return: BaseClassifier</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 
 <div class="viewcode-block" id="BaseClassifier.predict"><a class="viewcode-back" href="../../../api_classifiers.html#text_classification.classifier.base.BaseClassifier.predict">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">preprocessor</span><span class="p">,</span> <span class="n">predict_train</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">predict_test</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="n">predict_dev</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Should add the field :code:`prediction` to the preprocessor&#39;s</span>
+<span class="sd">        instances containing the predicted label.</span>
+
+<span class="sd">        :param preprocessor: Preprocessor containing the samples to make</span>
+<span class="sd">            predictions on.</span>
+<span class="sd">        :type preprocessor: BasePreprocessor</span>
+<span class="sd">        :param predict_train: Whether to make predictions on the</span>
+<span class="sd">            train set.</span>
+<span class="sd">        :type predict_train: bool</span>
+<span class="sd">        :param predict_test: Whether to make predictions on the test set.</span>
+<span class="sd">        :type predict_test: bool</span>
+<span class="sd">        :param predict_dev: Whether to make predictions on the dev set.</span>
+<span class="sd">        :type predict_dev: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 
 <div class="viewcode-block" id="BaseClassifier.evaluate"><a class="viewcode-back" href="../../../api_classifiers.html#text_classification.classifier.base.BaseClassifier.evaluate">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">preprocessor</span><span class="p">,</span> <span class="n">evaluate_test</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">evaluate_dev</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Should make predictions on the preprocessor&#39;s train and/or dev</span>
+<span class="sd">        set and print out evaluation metrics.</span>
+
+<span class="sd">        :param preprocessor: Preprocessor containing dev/test samples.</span>
+<span class="sd">        :type preprocessor: BasePreprocessor</span>
+<span class="sd">        :param evaluate_test: Whether to evaluate on the test set.</span>
+<span class="sd">        :type evaluate_test: bool</span>
+<span class="sd">        :param evaluate_dev: Whether to evaluate on dev set.</span>
+<span class="sd">        :type evaluate_dev: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 
 <div class="viewcode-block" id="BaseClassifier.save"><a class="viewcode-back" href="../../../api_classifiers.html#text_classification.classifier.base.BaseClassifier.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>

@@ -159,10 +159,49 @@
 <em class="property">class </em><code class="sig-prename descclassname">text_classification.preprocessor.base.</code><code class="sig-name descname">BasePreprocessor</code><a class="reference internal" href="_modules/text_classification/preprocessor/base.html#BasePreprocessor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.preprocessor.base.BasePreprocessor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
 <p>Base class that all preprocessor classes should inherit from to
-ensure uniformity.</p>
+ensure uniformity. Classes inheriting from BasePreprocessor should
+consist of at least these three instance variables: train, test and
+dev. Each of these variables should contain the data split
+corresponding to its name. Each data split should be a list of
+dictionaries, where each dictionary represents one instance and
+contains the fields <code class="code docutils literal notranslate"><span class="pre">text</span></code> and <code class="code docutils literal notranslate"><span class="pre">label</span></code> holding the
+instance’s corresponding value.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">test</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dev</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="n">instance_1</span> <span class="n">text</span><span class="p">,</span>
+        <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="n">instance_1</span> <span class="n">label</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="n">instance_2</span> <span class="n">text</span><span class="p">,</span>
+        <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="n">instance_2</span> <span class="n">label</span>
+    <span class="p">},</span>
+    <span class="o">...</span>
+<span class="p">]</span>
+</pre></div>
+</div>
 <dl class="py method">
 <dt id="text_classification.preprocessor.base.BasePreprocessor.from_file">
 <em class="property">abstract classmethod </em><code class="sig-name descname">from_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/preprocessor/base.html#BasePreprocessor.from_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.preprocessor.base.BasePreprocessor.from_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="text_classification.preprocessor.base.BasePreprocessor.get_data">
+<em class="property">abstract </em><code class="sig-name descname">get_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/preprocessor/base.html#BasePreprocessor.get_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.preprocessor.base.BasePreprocessor.get_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="text_classification.preprocessor.base.BasePreprocessor.get_dev_data">
+<em class="property">abstract </em><code class="sig-name descname">get_dev_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/preprocessor/base.html#BasePreprocessor.get_dev_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.preprocessor.base.BasePreprocessor.get_dev_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="text_classification.preprocessor.base.BasePreprocessor.get_test_data">
+<em class="property">abstract </em><code class="sig-name descname">get_test_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/preprocessor/base.html#BasePreprocessor.get_test_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.preprocessor.base.BasePreprocessor.get_test_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="text_classification.preprocessor.base.BasePreprocessor.get_train_data">
+<em class="property">abstract </em><code class="sig-name descname">get_train_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_classification/preprocessor/base.html#BasePreprocessor.get_train_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_classification.preprocessor.base.BasePreprocessor.get_train_data" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">

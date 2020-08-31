@@ -166,10 +166,31 @@
 
 <div class="viewcode-block" id="BaseFeaturizer.extract_features"><a class="viewcode-back" href="../../../api_featurizers.html#text_classification.featurizer.base.BaseFeaturizer.extract_features">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">extract_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">preprocessor</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="nb">set</span><span class="p">()):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Should add two fields to the preprocessor&#39;s instances:</span>
+<span class="sd">        :code:`feature_vector` and :code:`feature_names`, where</span>
+<span class="sd">        :code:`feature_vector` is a list of numerical values</span>
+<span class="sd">        (=feature values) and :code:`feature_names` is a list of</span>
+<span class="sd">        strings (=brief description of features).</span>
+
+<span class="sd">        :param preprocessor: Preprocessor containing samples to featurize.</span>
+<span class="sd">        :type preprocessor: BasePreprocessor</span>
+<span class="sd">        :param exclude: Set of features that should be excluded from</span>
+<span class="sd">            resulting feature vectors.</span>
+<span class="sd">        :param exclude: Set[str]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 
 <div class="viewcode-block" id="BaseFeaturizer.add_feature"><a class="viewcode-back" href="../../../api_featurizers.html#text_classification.featurizer.base.BaseFeaturizer.add_feature">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">add_feature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature_extraction_function</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Should add a custom feature extraction function to the ones</span>
+<span class="sd">        defined in the inheriting class.</span>
+
+<span class="sd">        :param feature_extraction_function: Custom function that</span>
+<span class="sd">            extracts features from text.</span>
+<span class="sd">        :type feature_extraction_function: function</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 
 <div class="viewcode-block" id="BaseFeaturizer.save"><a class="viewcode-back" href="../../../api_featurizers.html#text_classification.featurizer.base.BaseFeaturizer.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
