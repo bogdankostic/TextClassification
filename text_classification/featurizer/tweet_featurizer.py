@@ -113,6 +113,7 @@ class TweetFeaturizer(BaseFeaturizer):
             "semicolon": 0,
             "hyphen": 0,
             "at": 0,
+            "hashtag": 0,
         })
 
         for char in instance["text"]:
@@ -143,6 +144,8 @@ class TweetFeaturizer(BaseFeaturizer):
                 counts["hyphen"] += 1
             elif char == "@" and "at" not in exclude:
                 counts["at"] += 1
+            elif char == "#" and "hashtag" not in exclude:
+                counts["hashtag"] += 1
 
         # normalize counts
         if self.normalize:
@@ -169,7 +172,7 @@ class TweetFeaturizer(BaseFeaturizer):
                                        for token in instance["tokens"])
 
         for key in exclude:
-            counts.pop(key, default=None)
+            counts.pop(key, None)
 
         return counts
 
