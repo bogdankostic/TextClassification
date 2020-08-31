@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# IntelliJ configs
+.idea/
+
+# Individual .gitignore
+data/
