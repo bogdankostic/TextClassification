@@ -15,10 +15,31 @@ class BaseFeaturizer(ABC):
 
     @abstractmethod
     def extract_features(self, preprocessor, exclude=set()):
+        """
+        Should add two fields to the preprocessor's instances:
+        :code:`feature_vector` and :code:`feature_names`, where
+        :code:`feature_vector` is a list of numerical values
+        (=feature values) and :code:`feature_names` is a list of
+        strings (=brief description of features).
+
+        :param preprocessor: Preprocessor containing samples to featurize.
+        :type preprocessor: BasePreprocessor
+        :param exclude: Set of features that should be excluded from
+            resulting feature vectors.
+        :param exclude: Set[str]
+        """
         pass
 
     @abstractmethod
     def add_feature(self, feature_extraction_function):
+        """
+        Should add a custom feature extraction function to the ones
+        defined in the inheriting class.
+
+        :param feature_extraction_function: Custom function that
+            extracts features from text.
+        :type feature_extraction_function: function
+        """
         pass
 
     def save(self, filename):

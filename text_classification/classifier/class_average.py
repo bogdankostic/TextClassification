@@ -29,7 +29,7 @@ class ClassAverageClassifier(BaseClassifier):
 
         :param preprocessor: Preprocessor instance that contains a train
             set and has been already featurized, i.e. each train instance
-            should contain the key "feature_vector", "feature_names"
+            should contain the keys "feature_vector", "feature_names"
             and "label".
         :type preprocessor: BasePreprocessor
         :return: ClassAverageClassifier
