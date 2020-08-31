@@ -40,8 +40,13 @@ classifier = ClassAverageClassifier()
 classifier.train(preprocessor)
 ```
 
-More detailed examples can be found in the [examples](https://github.com/bogdankostic/TextClassification/tree/master/examples)
-directory.
+## Example
+This library has been built around the *Hillary Clinton and Donald Trump Tweets* dataset, which can be downloaded from
+here: https://www.kaggle.com/benhamner/clinton-trump-tweets 
+
+The example script that trains and evaluates a model on the dataset can be found in this
+[here](https://github.com/bogdankostic/TextClassification/blob/master/examples/Example01_trump_clinton_dataset.py).
+This example achieves an accuracy and a macro-averaged F1-score of 0.57.
 
 ## Tests
 Tests can be executed using the command `pytest` from within 
