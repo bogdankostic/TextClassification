@@ -269,7 +269,8 @@ class CSVPreprocessor(BasePreprocessor):
                                  f"name.")
             try:
                 label_col_idx = headers.index(label_column)
-                data = [{"text": row[text_col_idx], "label": row[label_col_idx]}
+                data = [{"text": row[text_col_idx],
+                         "label": row[label_col_idx]}
                         for row in csv_reader]
             except ValueError:
                 logger.warning(f"Reading data from {filename} without label, "

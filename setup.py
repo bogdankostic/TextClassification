@@ -1,5 +1,6 @@
 import setuptools
 
+
 def parse_requirements(filename):
     """
     Parse a requirements pip file returning the list of required packages.

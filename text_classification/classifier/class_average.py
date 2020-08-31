@@ -37,7 +37,7 @@ class ClassAverageClassifier(BaseClassifier):
         train_set = preprocessor.get_train_data()
         if not train_set:
             logger.warning("Classifier won't be trained as Preprocessor's "
-                            "train set is empty.")
+                           "train set is empty.")
             return self
 
         logger.info(f"Training the classifier on {len(train_set)} training "
@@ -179,7 +179,8 @@ class ClassAverageClassifier(BaseClassifier):
 
             else:
                 raise KeyError("Instance to predict doesn't contain feature "
-                               "vector. Make sure to apply first a Featurizer!")
+                               "vector. Make sure to apply first a "
+                               "Featurizer!")
 
         return dicts
 
